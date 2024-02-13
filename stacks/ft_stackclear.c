@@ -30,7 +30,8 @@ void	ft_stackclear(t_stack *stack, void (*del)(void *))
 	while (delenda != NULL)
 	{
 		temp = delenda->next;
-		ft_stackdelone(stack, delenda, del);
+		if (delenda)
+			ft_stackdelone(stack, delenda, del);
 		delenda = temp;
 	}
 	stack->bottom = NULL;

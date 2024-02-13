@@ -31,7 +31,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 SRCSB	= get_next_line_bonus.c
 
 SRCS_FT	= ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
-	ft_nodedel.c ft_map_reader.c ft_printerror.c 
+	ft_map_reader.c ft_printerror.c 
 
 SRCS_L	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \

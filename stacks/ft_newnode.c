@@ -21,13 +21,13 @@
 
 t_node	*ft_newnode(void *content)
 {
-	t_node	*stack;
+	t_node	*node;
 
-	stack = malloc(sizeof(*stack));
-	if (stack == NULL)
+	node = malloc(sizeof(*node));
+	if (node == NULL)
 		return (NULL);
-	stack->content = content;
-	stack->prev = NULL;
-	stack->next = NULL;
-	return (stack);
+	node->content = content;
+	node->prev = NULL;
+	node->next = NULL;
+	return (node);
 }

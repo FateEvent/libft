@@ -35,7 +35,6 @@ int		ft_strstrbool(const char *haystack, const char *needle);
 int		ft_strnstrbool(const char *haystack, const char *needle,
 			size_t len);
 int		void_star_cmp(void *s1, void *s2);
-void	ft_nodedel(void *as);
 void	ft_printerror(char *program, char *pathname);
 char	**ft_map_reader(char *filename);
 

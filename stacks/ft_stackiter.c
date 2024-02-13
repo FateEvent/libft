@@ -21,7 +21,7 @@ void	ft_stackiter(t_stack *stack, void (*f)(void *))
 {
 	t_node	*current;
 
-	if (!stack || stack->top || !f)
+	if (!stack || !stack->top || !f)
 		return ;
 	current = stack->top;
 	while (current != NULL)

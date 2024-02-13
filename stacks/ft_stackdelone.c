@@ -41,4 +41,5 @@ void	ft_stackdelone(t_stack *stack, t_node *node, void (*del)(void *))
 	}
 	del(node->content);
 	free(node);
+	stack->length--;
 }
