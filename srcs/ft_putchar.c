@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 10:37:01 by faventur          #+#    #+#             */
-/*   Updated: 2024/03/05 16:57:14 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:57:08 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_putchar(char c)
 {
-	return (write(1, &c, 1));
+	return (ft_putchar_fd(c, 1));
 }

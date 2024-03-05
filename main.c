@@ -14,4 +14,10 @@ int main()
     ft_printf("\n%d\n", i);
     i = ft_putnbr_fd(-2147483648, 1);
     ft_printf("\n%d\n", i);
+    char *s = NULL;
+    char *t = "Je vais faire les courses";
+    ft_printf("%d\n", ft_printf("%s\t%p\n", s, s));
+    ft_printf("%d\n", ft_printf("%s\t%p\n", t, t));
+    printf("%d\n", printf("%s\t%p\n", s, s));
+    printf("%d\n", printf("%s\t%p\n", t, t));
 }

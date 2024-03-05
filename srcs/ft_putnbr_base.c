@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:24:31 by faventur          #+#    #+#             */
-/*   Updated: 2022/06/27 17:29:18 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:03:22 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ void	convert_base(long int num, char *base)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	long int	nbr2;
+	long int	x;
 
 	if (!base)
 		return ;
-	nbr2 = nbr;
+	x = nbr;
 	if (check_base(base))
 	{
 		if (nbr < 0)
 		{
 			write(1, "-", 1);
-			nbr2 = -nbr2;
+			x = -x;
 		}
-		convert_base(nbr2, base);
+		convert_base(x, base);
 	}
 }
