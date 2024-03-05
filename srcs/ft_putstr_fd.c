@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 11:13:40 by faventur          #+#    #+#             */
-/*   Updated: 2022/03/01 18:18:52 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:57:31 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,20 @@
 
 #include "libft.h"
 
-void	ft_putstr_fd(char const *str, int fd)
+int	ft_putstr_fd(char const *str, int fd)
 {
+	int	i;
+
+	i = 0;
 	if (fd >= 0 && str)
 	{
-		while (*str != '\0')
+		while (i >= 0 && str[i])
 		{
-			ft_putchar_fd(*str, fd);
-			str++;
+			if (ft_putchar_fd(str[i], fd))
+				i = -1;
+			else
+				i++;
 		}
 	}
+	return (i);
 }

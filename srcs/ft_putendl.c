@@ -6,17 +6,22 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 11:33:00 by faventur          #+#    #+#             */
-/*   Updated: 2022/06/27 17:15:46 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:57:25 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl(char const *s)
+int	ft_putendl(char const *s)
 {
+	int	i;
+
+	i = 0;
 	if (s)
 	{
-		ft_putstr(s);
-		write(1, "\n", 1);
+		i = ft_putstr(s);
+		if (i > -1)
+			i += write(1, "\n", 1);
 	}
+	return (i);
 }

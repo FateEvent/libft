@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 10:27:48 by faventur          #+#    #+#             */
-/*   Updated: 2022/03/01 18:15:07 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:57:09 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
+	int	i;
+
+	i = 0;
 	if (fd >= 0)
-		write(fd, &c, 1);
-	else
-		return ;
+		i = write(fd, &c, 1);
+	return (i);
 }

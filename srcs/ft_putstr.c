@@ -6,20 +6,26 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 10:49:08 by faventur          #+#    #+#             */
-/*   Updated: 2022/06/27 17:06:11 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:57:34 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *str)
+int	ft_putstr(char const *str)
 {
+	int	i;
+
+	i = 0;
 	if (str)
 	{
-		while (*str != '\0')
+		while (i >= 0 && str[i])
 		{
-			ft_putchar(*str);
-			str++;
+			if (ft_putchar(str[i]) == -1)
+				i = -1;
+			else
+				i++;
 		}
 	}
+	return (i);
 }

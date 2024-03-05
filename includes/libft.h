@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2023/03/18 13:12:56 by faventur         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:57:41 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ void	ft_striter(char *s, void (*f)(char *));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strmap(char const *s, char (*f)(char));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void	ft_putchar(char c);
-void	ft_putstr(char const *str);
-void	ft_putendl(char const *s);
+int		ft_putchar(char c);
+int		ft_putstr(char const *str);
+int		ft_putendl(char const *s);
 void	ft_putnbr(int nb);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char const *str, int fd);
-void	ft_putendl_fd(char const *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char const *str, int fd);
+int		ft_putendl_fd(char const *s, int fd);
 void	ft_putnbr_fd(int nb, int fd);
 void	ft_putnbr_base(int nbr, char *base);
 
