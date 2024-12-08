@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _functions.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:02:09 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/05 10:35:02 by faventur         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:33:28 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <errno.h>
 # include "libft.h"
 # include "get_next_line.h"
-# include "ft_fprintf.h"
 
 typedef struct s_map_reader
 {
