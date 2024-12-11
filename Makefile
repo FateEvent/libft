@@ -6,11 +6,11 @@
 #    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2024/12/11 13:25:27 by faventur         ###   ########.fr        #
+#    Updated: 2024/12/11 16:55:04 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
+SRCS 	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	ft_isprint.c ft_isspace.c ft_strlen.c ft_memset.c ft_bzero.c \
 	ft_memalloc.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memdel.c \
 	ft_strnew.c ft_strclear.c ft_strdel.c ft_strcpy.c ft_strncpy.c \
@@ -48,6 +48,9 @@ SRCS_BT	= btree_create_node.c btree_apply_prefix.c btree_apply_infix.c \
 	btree_apply_suffix.c btree_insert_data.c btree_search_item.c \
 	btree_level_count.c ft_btree_clear.c
 
+SRCS_NT	= parse_ip.c is_hex.c parse_mac.c get_my_ip.c
+
+
 OBJS	= $(addprefix srcs/, ${SRCS:.c=.o})
 
 OBJSB	= $(addprefix srcsb/, ${SRCSB:.c=.o})
@@ -61,6 +64,8 @@ OBJS_S	= $(addprefix stacks/, ${SRCS_S:.c=.o})
 OBJS_Q	= $(addprefix queues/, ${SRCS_Q:.c=.o})
 
 OBJS_BT	= $(addprefix btrees/, ${SRCS_BT:.c=.o})
+
+OBJS_NT	= $(addprefix networking/, ${SRCS_NT:.c=.o})
 
 NAME	= libft.a
 
@@ -90,9 +95,12 @@ queues:		${NAME} ${OBJS_Q}
 btrees:		${NAME} ${OBJS_BT}
 			ar -rcs ${NAME} ${OBJS_BT}
 
+network:	${NAME} ${OBJS_NT}
+			ar -rcs ${NAME} ${OBJS_NT}
+
 clean:
 			rm -f ${OBJS} ${OBJSB} ${OBJS_FT} ${OBJS_L} ${OBJS_S} \
-				${OBJS_Q} ${OBJS_BT}
+				${OBJS_Q} ${OBJS_BT} ${OBJS_NT}
 
 fclean:		clean
 			rm -f ${NAME}
