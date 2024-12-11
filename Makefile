@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2024/03/06 13:13:56 by faventur         ###   ########.fr        #
+#    Updated: 2024/12/11 13:25:27 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	ft_intarr_freer.c
 
 SRCS_FT	= ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
-	ft_map_reader.c ft_printerror.c 
+	ft_map_reader.c ft_printerror.c ft_strcasecmp.c
 
 SRCS_L	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
