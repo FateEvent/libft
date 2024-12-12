@@ -6,7 +6,7 @@
 #    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2024/12/11 16:55:04 by faventur         ###   ########.fr        #
+#    Updated: 2024/12/12 15:57:20 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRCS_BT	= btree_create_node.c btree_apply_prefix.c btree_apply_infix.c \
 	btree_apply_suffix.c btree_insert_data.c btree_search_item.c \
 	btree_level_count.c ft_btree_clear.c
 
-SRCS_NT	= parse_ip.c is_hex.c parse_mac.c get_my_ip.c
+SRCS_NET	= parse_ip.c is_hex.c parse_mac.c get_my_ip.c \
+	compute_checksum.c
 
 
 OBJS	= $(addprefix srcs/, ${SRCS:.c=.o})
@@ -65,7 +66,8 @@ OBJS_Q	= $(addprefix queues/, ${SRCS_Q:.c=.o})
 
 OBJS_BT	= $(addprefix btrees/, ${SRCS_BT:.c=.o})
 
-OBJS_NT	= $(addprefix networking/, ${SRCS_NT:.c=.o})
+OBJS_NET	= $(addprefix networking/, ${SRCS_NET:.c=.o})
+
 
 NAME	= libft.a
 
@@ -95,12 +97,12 @@ queues:		${NAME} ${OBJS_Q}
 btrees:		${NAME} ${OBJS_BT}
 			ar -rcs ${NAME} ${OBJS_BT}
 
-network:	${NAME} ${OBJS_NT}
-			ar -rcs ${NAME} ${OBJS_NT}
+network:	${NAME} ${OBJS_NET}
+			ar -rcs ${NAME} ${OBJS_NET}
 
 clean:
 			rm -f ${OBJS} ${OBJSB} ${OBJS_FT} ${OBJS_L} ${OBJS_S} \
-				${OBJS_Q} ${OBJS_BT} ${OBJS_NT}
+				${OBJS_Q} ${OBJS_BT} ${OBJS_NET}
 
 fclean:		clean
 			rm -f ${NAME}
