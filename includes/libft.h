@@ -129,6 +129,7 @@ void				ft_lstsort(t_list **begin_list, int (*cmp)());
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // Addenda
+int					strnumcheck(const char *str);
 void				ft_sort_int_tab(int	*tab, int size);
 void				ft_sort_chartab(char **tab);
 size_t				ft_chartab_len(char **arr);

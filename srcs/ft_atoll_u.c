@@ -12,7 +12,7 @@
 
 /*
 ** The ft_atoll_u() function converts the initial portion of the string
-** pointed to by nptr to long long unsigned int.
+** pointed to by nptr to unsigned long long int.
 **
 ** Return Value: The converted value.
 */
