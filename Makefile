@@ -26,7 +26,7 @@ SRCS 	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	ft_strtolol.c ft_arr_freer.c ft_arr_freer_index.c ft_puterror.c \
 	ft_printf.c ft_printf_utils.c ft_fprintf.c get_next_line.c \
 	ft_arrdup.c ft_arrlen.c ft_arr_display.c ft_arr_display_size.c \
-	ft_intarr_freer.c
+	ft_intarr_freer.c ft_atol.c ft_atoll_u.c
 
 SRCS_FT	= ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
 	ft_map_reader.c ft_printerror.c ft_strcasecmp.c
@@ -52,27 +52,29 @@ SRCS_NET	= parse_ip.c is_hex.c parse_mac.c get_my_ip.c \
 	compute_checksum.c
 
 
-OBJS	= $(addprefix srcs/, ${SRCS:.c=.o})
+OBJS		=	$(addprefix srcs/, ${SRCS:.c=.o})
 
-OBJSB	= $(addprefix srcsb/, ${SRCSB:.c=.o})
+OBJSB		=	$(addprefix srcsb/, ${SRCSB:.c=.o})
 
-OBJS_FT	= $(addprefix _ft/, ${SRCS_FT:.c=.o})
+OBJS_FT		=	$(addprefix _ft/, ${SRCS_FT:.c=.o})
 
-OBJS_L	= $(addprefix lists/, ${SRCS_L:.c=.o})
+OBJS_L		=	$(addprefix lists/, ${SRCS_L:.c=.o})
 
-OBJS_S	= $(addprefix stacks/, ${SRCS_S:.c=.o})
+OBJS_S		=	$(addprefix stacks/, ${SRCS_S:.c=.o})
 
-OBJS_Q	= $(addprefix queues/, ${SRCS_Q:.c=.o})
+OBJS_Q		=	$(addprefix queues/, ${SRCS_Q:.c=.o})
 
-OBJS_BT	= $(addprefix btrees/, ${SRCS_BT:.c=.o})
+OBJS_BT		=	$(addprefix btrees/, ${SRCS_BT:.c=.o})
 
-OBJS_NET	= $(addprefix networking/, ${SRCS_NET:.c=.o})
+OBJS_NET	=	$(addprefix networking/, ${SRCS_NET:.c=.o})
 
+CFLAGS		=	-Wall -Wextra #-Werror
+INCLUDES	=	-I./includes
 
-NAME	= libft.a
+NAME		= libft.a
 
 .c.o:
-		gcc -Wall -Wextra -Werror -g -c -I./includes $< -o ${<:.c=.o}
+		gcc ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 			ar -rcs $@ $^
