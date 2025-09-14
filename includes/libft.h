@@ -24,8 +24,9 @@
 #  define LONG_LONG_MAX 9223372036854775807
 # endif
 
+// https://stackoverflow.com/questions/11270084/why-are-there-differing-definitions-of-int64-min-and-why-do-they-behave-differe
 # ifndef LONG_LONG_MIN
-#  define LONG_LONG_MIN -9223372036854775808
+#  define LONG_LONG_MIN (-9223372036854775807LL - 1)
 # endif
 
 typedef struct s_matrix
