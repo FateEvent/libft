@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:02:09 by faventur          #+#    #+#             */
-/*   Updated: 2024/12/11 13:28:45 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/04 18:55:50 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		ft_strnstrbool(const char *haystack, const char *needle,
 int		ft_strcasecmp(const char *s1, const char *s2);
 int		void_star_cmp(void *s1, void *s2);
 void	ft_printerror(char *program, char *pathname);
+void	ft_fatal(char *msg);
 char	**ft_map_reader(char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2024/12/12 15:57:20 by faventur         ###   ########.fr        #
+#    Updated: 2026/03/04 18:59:27 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS 		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c
 
 SRCS_FT		=	ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
-		ft_map_reader.c ft_printerror.c ft_strcasecmp.c
+		ft_map_reader.c ft_printerror.c ft_fatal.c ft_strcasecmp.c
 
 SRCS_L		=	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
