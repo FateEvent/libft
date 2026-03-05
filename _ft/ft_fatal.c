@@ -15,5 +15,5 @@
 void	ft_fatal(char *msg)
 {
 	ft_puterror(msg);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
