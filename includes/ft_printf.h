@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fprintf.h                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:18:37 by faventur          #+#    #+#             */
-/*   Updated: 2024/03/05 19:52:14 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:28:36 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,20 @@
 # include <stdarg.h>
 # include "libft.h"
 
+typedef struct s_specifiers {
+
+	size_t	zero;
+	size_t	sharp;
+	size_t	minus;
+	size_t	width;
+	size_t	precision;
+}				t_specs;
+
 int		ft_put_unsigned(int nbr, char *base, int fd);
 int		ft_putoctal(int nbr, char *base, int fd);
 int		ft_puthex(unsigned int nbr, char *base, int fd);
 int		ft_putaddr(unsigned long long nbr, int fd);
-int		manage_print_args(va_list arg_p, int fd, const char *format, int i);
+int		manage_print_args(va_list arg_p, int fd, const char *format, size_t *i);
 int		ft_dprintf(int fd, const char *format, ...);
 int		ft_printf(const char *format, ...);
 
