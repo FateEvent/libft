@@ -6,39 +6,53 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 18:30:17 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/07 19:33:20 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
+int	manage_specs(t_specs specs, size_t len, int fd) {
 
-	t_specs	specs;
 	size_t	j;
 	int		ret;
 
 	j = 0;
+	ret = 0;
+	if (specs.width) {
+
+		while (len < specs.width) {
+
+			ret += ft_putchar_fd(' ', fd);
+			if (ret != -1)
+
+				j += ret;
+			else
+
+				return (-1);
+			len++;
+		}
+	}
+	return (j);
+}
+
+int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
+
+	t_specs	specs;
+	size_t	j;
+	size_t	count;
+	int		ret;
+
+	j = 0;
+	count = 0;
 	ft_bzero(&specs, sizeof(specs));
 	if (ft_isdigit(format[*i])) {
 
 		specs.width = ft_atoi(&format[*i]);
 		while (ft_isdigit(format[*i])) {
 
+			count++;
 			(*i)++;
-		}
-		if (specs.width) {
-
-			for (size_t i = 0; i < specs.width; i++) {
-
-				ret += ft_putchar_fd(' ', fd);
-				if (ret != -1)
-
-					j += ret;
-				else
-
-					return (-1);
-			}
 		}
 	}
 	if (format[*i] == '%') {
@@ -52,6 +66,13 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 'c') {
 
+		ret = manage_specs(specs, ft_strlen(ft_itoa(va_arg(arg_p, int))), fd);
+		if (ret != -1)
+
+			j += ret;
+		else
+
+			return (-1);
 		ret = ft_putchar_fd(va_arg(arg_p, int), fd);
 		if (ret != -1)
 
@@ -61,7 +82,17 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 'd' || format[*i] == 'i') {
 
-		ret = ft_putnbr_fd(va_arg(arg_p, int), fd);
+		int	num;
+
+		num = va_arg(arg_p, int);
+		ret = manage_specs(specs, ft_strlen(ft_itoa(num)), fd);
+		if (ret != -1)
+
+			j += ret;
+		else
+
+			return (-1);
+		ret = ft_putnbr_fd(num, fd);
 		if (ret != -1)
 
 			j += ret;
@@ -70,7 +101,17 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 's') {
 
-		ret = ft_putstr_fd(va_arg(arg_p, char *), fd);
+		char	*str;
+
+		str = va_arg(arg_p, char *);
+		ret = manage_specs(specs, ft_strlen(str), fd);
+		if (ret != -1)
+
+			j += ret;
+		else
+
+			return (-1);
+		ret = ft_putstr_fd(str, fd);
 		if (ret != -1)
 
 			j += ret;
