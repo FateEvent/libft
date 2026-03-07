@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 19:33:20 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/07 20:12:59 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 'c') {
 
-		ret = manage_specs(specs, ft_strlen(ft_itoa(va_arg(arg_p, int))), fd);
+		ret = manage_specs(specs, 1, fd);
 		if (ret != -1)
 
 			j += ret;
@@ -82,10 +82,18 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 'd' || format[*i] == 'i') {
 
-		int	num;
+		char	*str;
+		size_t	len;
+		int		num;
 
 		num = va_arg(arg_p, int);
-		ret = manage_specs(specs, ft_strlen(ft_itoa(num)), fd);
+		str = ft_itoa(num);
+		if (!str)
+
+			retrun (-1);
+		len = ft_strlen(str);
+		free(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
