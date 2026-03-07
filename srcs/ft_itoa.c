@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 16:28:54 by faventur          #+#    #+#             */
-/*   Updated: 2022/02/28 10:48:45 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:49:22 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	len_calculator(int n)
 	return (i);
 }
 
-static char	*ft_rev_str(char *res)
+char	*ft_rev_str(char *res)
 {
 	int		start;
 	int		end;
@@ -55,7 +55,7 @@ static char	*ft_rev_str(char *res)
 	return (res);
 }
 
-static void	write_zeroes(char *res, int n)
+void	write_zeroes(char *res, int n)
 {
 	if (n == 0)
 	{

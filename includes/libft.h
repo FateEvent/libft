@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2024/03/05 17:10:17 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:53:20 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ char				*ft_strtrim(char const *s, char const *set);
 char				*ft_spacetrim(char const *s);
 char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
+char				*ft_rev_str(char *res);
+void				write_zeroes(char *res, int n);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char const *s, char (*f)(char));
@@ -115,6 +117,7 @@ int					ft_putstr_fd(char const *str, int fd);
 int					ft_putendl_fd(char const *s, int fd);
 int					ft_putnbr_fd(int nb, int fd);
 void				ft_putnbr_base(int nbr, char *base);
+int					check_base(char *base);
 
 // Bonus functions
 t_list				*ft_lstnew(void *content);
@@ -147,5 +150,6 @@ void				ft_arr_display_size(char **arr, size_t size);
 void				ft_intarr_freer(int **arr);
 void				ft_intarr_freer_index(int **arr, ssize_t index);
 void				ft_matrix_display(int **arr, size_t len);
+char				*ft_itoa_base(int n, char *base);
 
 #endif

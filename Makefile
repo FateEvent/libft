@@ -6,7 +6,7 @@
 #    By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2026/03/07 15:14:17 by fab              ###   ########.fr        #
+#    Updated: 2026/03/07 21:28:13 by fab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,15 @@ SRCS 		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_tolower.c ft_strchr.c ft_strrchr.c ft_strcmp.c ft_strncmp.c \
 		ft_memchr.c ft_memcmp.c ft_strstr.c ft_strnstr.c ft_strequ.c \
 		ft_strnequ.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
-		ft_strjoin.c ft_strtrim.c ft_spacetrim.c ft_split.c ft_itoa.c \
+		ft_strjoin.c ft_strtrim.c ft_spacetrim.c ft_split.c ft_itoa.c ft_itoa_base.c \
 		ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c ft_putchar.c \
 		ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c \
 		ft_putendl_fd.c ft_putnbr_fd.c ft_putnbr_base.c ft_sort_int_tab.c \
 		ft_sort_chartab.c ft_chartab_len.c ft_power.c ft_binary2char.c \
 		ft_strtolol.c ft_arr_freer.c ft_arr_freer_index.c ft_puterror.c \
 		get_next_line.c ft_arrdup.c ft_arrlen.c ft_arr_display.c \
-		ft_arr_display_size.c ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c
+		ft_arr_display_size.c ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c \
+		ft_itoa_base.c
 
 SRCS_PRINTF	=	ft_printf.c ft_printf_utils.c ft_dprintf.c
 

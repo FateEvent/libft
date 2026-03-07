@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 20:24:31 by faventur          #+#    #+#             */
-/*   Updated: 2024/03/05 19:03:22 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:52:28 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_base(char *base)
 	return (1);
 }
 
-void	convert_base(long int num, char *base)
+static void	convert_base(long int num, char *base)
 {
 	long int	len;
 

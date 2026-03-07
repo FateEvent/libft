@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 20:12:59 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/07 21:31:02 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 		str = ft_itoa(num);
 		if (!str)
 
-			retrun (-1);
+			return (-1);
 		len = ft_strlen(str);
 		free(str);
 		ret = manage_specs(specs, len, fd);
