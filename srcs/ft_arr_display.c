@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arr_display.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 13:24:33 by faventur          #+#    #+#             */
-/*   Updated: 2023/03/18 17:13:01 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/07 15:01:28 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_arr_display(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_printf("%s\n", arr[i]);
+		ft_putendl(arr[i]);
 		i++;
 	}
 }
@@ -65,10 +65,10 @@ void	ft_matrix_display(int **arr, size_t len)
 			m.k = ft_strlen(ft_itoa(arr[m.i][m.j]));
 			while (m.k < m.num_len)
 			{
-				write(1, " ", 1);
+				ft_putchar(' ');
 				++m.k;
 			}
-			ft_printf("%d ", arr[m.i][m.j]);
+			ft_putnbr(arr[m.i][m.j]);
 			if (m.j + 1 != len)
 				write(1, " ", 1);
 		}

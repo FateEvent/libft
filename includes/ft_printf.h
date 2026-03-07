@@ -23,7 +23,7 @@ int		ft_putoctal(int nbr, char *base, int fd);
 int		ft_puthex(unsigned int nbr, char *base, int fd);
 int		ft_putaddr(unsigned long long nbr, int fd);
 int		manage_print_args(va_list arg_p, int fd, const char *format, int i);
-int		ft_fprintf(int fd, const char *format, ...);
+int		ft_dprintf(int fd, const char *format, ...);
 int		ft_printf(const char *format, ...);
 
 #endif

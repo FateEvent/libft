@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2026/03/04 18:59:27 by faventur         ###   ########.fr        #
+#    Updated: 2026/03/07 15:14:17 by fab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,10 @@ SRCS 		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_putendl_fd.c ft_putnbr_fd.c ft_putnbr_base.c ft_sort_int_tab.c \
 		ft_sort_chartab.c ft_chartab_len.c ft_power.c ft_binary2char.c \
 		ft_strtolol.c ft_arr_freer.c ft_arr_freer_index.c ft_puterror.c \
-		ft_printf.c ft_printf_utils.c ft_fprintf.c get_next_line.c \
-		ft_arrdup.c ft_arrlen.c ft_arr_display.c ft_arr_display_size.c \
-		ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c
+		get_next_line.c ft_arrdup.c ft_arrlen.c ft_arr_display.c \
+		ft_arr_display_size.c ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c
+
+SRCS_PRINTF	=	ft_printf.c ft_printf_utils.c ft_dprintf.c
 
 SRCS_FT		=	ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
 		ft_map_reader.c ft_printerror.c ft_fatal.c ft_strcasecmp.c
@@ -54,7 +55,7 @@ SRCS_NET	=	parse_ip.c is_hex.c parse_mac.c get_my_ip.c \
 
 OBJS		=	$(addprefix srcs/, ${SRCS:.c=.o})
 
-OBJSB		=	$(addprefix srcsb/, ${SRCSB:.c=.o})
+OBJS_PRINTF	=	$(addprefix ft_printf/, ${SRCS_PRINTF:.c=.o})
 
 OBJS_FT		=	$(addprefix _ft/, ${SRCS_FT:.c=.o})
 
@@ -68,7 +69,7 @@ OBJS_BT		=	$(addprefix btrees/, ${SRCS_BT:.c=.o})
 
 OBJS_NET	=	$(addprefix networking/, ${SRCS_NET:.c=.o})
 
-CFLAGS		=	-Wall -Wextra #-Werror
+CFLAGS		=	-Wall -Wextra -Werror
 INCLUDES	=	-I./includes
 
 NAME		= libft.a
@@ -81,8 +82,8 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
-bonus:		${NAME} ${OBJSB}
-			ar -rcs ${NAME} ${OBJSB}
+printf:		${NAME} ${OBJS_PRINTF}
+			ar -rcs ${NAME} ${OBJS_PRINTF}
 
 _ft:		${NAME} ${OBJS_FT}
 			ar -rcs ${NAME} ${OBJS_FT}
@@ -103,8 +104,8 @@ network:	${NAME} ${OBJS_NET}
 			ar -rcs ${NAME} ${OBJS_NET}
 
 clean:
-			rm -f ${OBJS} ${OBJSB} ${OBJS_FT} ${OBJS_L} ${OBJS_S} \
-				${OBJS_Q} ${OBJS_BT} ${OBJS_NET}
+			rm -f ${OBJS} ${OBJS_PRINTF} ${OBJS_FT} ${OBJS_L} \
+				${OBJS_S} ${OBJS_Q} ${OBJS_BT} ${OBJS_NET}
 
 fclean:		clean
 			rm -f ${NAME}

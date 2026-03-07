@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
-# include "ft_printf.h"
 # include "get_next_line.h"
 
 # ifndef LONG_LONG_MAX
