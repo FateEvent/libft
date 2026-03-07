@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 20:07:35 by fab               #+#    #+#             */
-/*   Updated: 2026/03/07 21:53:37 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/07 22:14:32 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	len_calculator_base(int n, long int base_len)
 		n /= base_len;
 		i++;
 	}
-	printf("i: %d\n", i);
 	return (i);
 }
 
