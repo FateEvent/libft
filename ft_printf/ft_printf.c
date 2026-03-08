@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 13:17:52 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 13:46:57 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,39 @@ int	manage_specs_right(t_specs specs, size_t len, int fd)
 	return (j);
 }
 
-int	manage_specs_left(t_specs specs, size_t len, int fd)
+int	manage_specs_left(t_specs *specs, size_t len, int fd)
 {
 	size_t	j;
 	int		ret;
 	char	c;
+	char	*prefix;
 
 	j = 0;
 	ret = 0;
-	if (specs.width && !specs.left_justify) {
+	if (specs->hash_flag && (specs->format_flag == 'o' || specs->format_flag == 'x'
+		|| specs->format_flag == 'X')) {
+		if (specs->format_flag == 'o')
+			prefix = "0";
+		else if (specs->format_flag == 'x')
+			prefix = "0x";
+		else
+			prefix = "0X";
+		ret += ft_putstr_fd(prefix, fd);
+		if (ret != -1)
+			j += ret;
+		else
+			return (-1);
+		if (specs->width)
+			specs->width -= ft_strlen(prefix);
+	}
+	if (specs->width && !specs->left_justify) {
 		c = ' ';
-		if (specs.zero_pad && (specs.format_flag == 'd' || specs.format_flag == 'i'
-			|| specs.format_flag == 'u' || specs.format_flag == 'o'
-			|| specs.format_flag == 'x' || specs.format_flag == 'X'
-			|| specs.format_flag == 'p'))
+		if (specs->zero_pad && (specs->format_flag == 'd' || specs->format_flag == 'i'
+			|| specs->format_flag == 'u' || specs->format_flag == 'o'
+			|| specs->format_flag == 'x' || specs->format_flag == 'X'
+			|| specs->format_flag == 'p'))
 			c = '0';
-		while (len < specs.width) {
+		while (len < specs->width) {
 			ret += ft_putchar_fd(c, fd);
 			if (ret != -1)
 				j += ret;
@@ -75,7 +92,7 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 		return (ft_putchar_fd('%', fd));
 	if (c == 'c')
 	{
-		j = manage_specs_left(specs, 1, fd);
+		j = manage_specs_left(&specs, 1, fd);
 		ret = ft_putchar_fd(va_arg(arg_p, int), fd);
 		k = manage_specs_right(specs, 1, fd);
 		return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
@@ -83,7 +100,7 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 	str = va_arg(arg_p, char *);
 	if (!str)
 		str = "(null)";
-	j = manage_specs_left(specs, ft_strlen(str), fd);
+	j = manage_specs_left(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
@@ -103,7 +120,7 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa(va_arg(arg_p, int));
 	if (!str)
 		return (-1);
-	j = manage_specs_left(specs, ft_strlen(str), fd);
+	j = manage_specs_left(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);
@@ -128,7 +145,7 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
 	if (!str)
 		return (-1);
-	j = manage_specs_left(specs, ft_strlen(str), fd);
+	j = manage_specs_left(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);
@@ -140,14 +157,16 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 	t_specs	specs;
 
 	ft_bzero(&specs, sizeof(specs));
-	if (ft_isdigit(format[*i]) || format[*i] == '-')
+	if (ft_isdigit(format[*i]) || format[*i] == '-' || format[*i] == '#')
 	{
-		while (format[*i] == '0' || format[*i] == '-')
+		while (format[*i] == '0' || format[*i] == '-' || format[*i] == '#')
 		{
 			if (format[*i] == '0')
 				specs.zero_pad = 1;
-			else
+			else if (format[*i] == '-')
 				specs.left_justify = 1;
+			else if (format[*i] == '#')
+				specs.hash_flag = 1;
 			(*i)++;
 		}
 		specs.width = ft_atoi(&format[*i]);
