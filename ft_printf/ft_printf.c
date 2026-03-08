@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 10:48:32 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 11:26:23 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,241 +36,92 @@ int	manage_specs(t_specs specs, size_t len, int fd) {
 	return (j);
 }
 
-int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
-
-	t_specs	specs;
-	size_t	j;
-	size_t	count;
+static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
+{
+	char	*str;
 	int		ret;
+	int		j;
 
 	j = 0;
-	count = 0;
-	ft_bzero(&specs, sizeof(specs));
-	if (ft_isdigit(format[*i])) {
-
-		specs.width = ft_atoi(&format[*i]);
-		while (ft_isdigit(format[*i])) {
-
-			count++;
-			(*i)++;
-		}
-	}
-	if (format[*i] == '%') {
-
-		ret = ft_putchar_fd('%', fd);
-		if (ret != -1)
-
-			j += ret;
-		else
-
-			return (-1);
-	} else if (format[*i] == 'c') {
-
-		ret = manage_specs(specs, 1, fd);
-		if (ret != -1)
-
-			j += ret;
-		else
-
-			return (-1);
+	if (c == '%')
+		return (ft_putchar_fd('%', fd));
+	if (c == 'c')
+	{
+		j = manage_specs(specs, 1, fd);
 		ret = ft_putchar_fd(va_arg(arg_p, int), fd);
-		if (ret != -1)
-
-			j += ret;
-		else
-
-			return (-1);
-	} else if (format[*i] == 'd' || format[*i] == 'i') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa(va_arg(arg_p, int));
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-	} else if (format[*i] == 's') {
-
-		char	*str;
-		size_t	len;
-
-		str = va_arg(arg_p, char *);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else
-
-			return (-1);
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else
-
-			return (-1);
-	} else if (format[*i] == 'o') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa_base(va_arg(arg_p, int), "01234567");
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-	} else if (format[*i] == 'u') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa_u(va_arg(arg_p, unsigned int));
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-	} else if (format[*i] == 'x') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789abcdef");
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-	} else if (format[*i] == 'X') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789ABCDEF");
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-	} else if (format[*i] == 'p') {
-
-		char	*str;
-		size_t	len;
-
-		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
-		if (!str)
-
-			return (-1);
-		len = ft_strlen(str);
-		ret = manage_specs(specs, len, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
-		ret = ft_putstr_fd(str, fd);
-		if (ret != -1)
-
-			j += ret;
-		else {
-
-			free(str);
-			return (-1);
-		}
+		return ((j == -1 || ret == -1) ? -1 : j + ret);
 	}
-	return (j);
+	str = va_arg(arg_p, char *);
+	if (!str)
+		str = "(null)";
+	j = manage_specs(specs, ft_strlen(str), fd);
+	ret = ft_putstr_fd(str, fd);
+	return ((j == -1 || ret == -1) ? -1 : j + ret);
+}
+
+static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
+{
+	char	*str;
+	int		ret;
+	int		j;
+
+	if (c == 'u')
+		str = ft_itoa_u(va_arg(arg_p, unsigned int));
+	else
+		str = ft_itoa(va_arg(arg_p, int));
+	if (!str)
+		return (-1);
+	j = manage_specs(specs, ft_strlen(str), fd);
+	ret = ft_putstr_fd(str, fd);
+	free(str);
+	if (j == -1 || ret == -1)
+		return (-1);
+	return (j + ret);
+}
+
+static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
+{
+	char	*str;
+	int		ret;
+	int		j;
+
+	if (c == 'x')
+		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789abcdef");
+	else if (c == 'X')
+		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789ABCDEF");
+	else if (c == 'o')
+		str = ft_itoa_base(va_arg(arg_p, int), "01234567");
+	else
+		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
+	if (!str)
+		return (-1);
+	j = manage_specs(specs, ft_strlen(str), fd);
+	ret = ft_putstr_fd(str, fd);
+	free(str);
+	if (j == -1 || ret == -1)
+		return (-1);
+	return (j + ret);
+}
+
+int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
+{
+	t_specs	specs;
+
+	ft_bzero(&specs, sizeof(specs));
+	if (ft_isdigit(format[*i]))
+	{
+		specs.width = ft_atoi(&format[*i]);
+		while (ft_isdigit(format[*i]))
+			(*i)++;
+	}
+	if (format[*i] == 'c' || format[*i] == 's' || format[*i] == '%')
+		return (handle_alpha(arg_p, fd, format[*i], specs));
+	if (format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'u')
+		return (handle_digit(arg_p, fd, format[*i], specs));
+	if (format[*i] == 'x' || format[*i] == 'X' || format[*i] == 'p' 
+		|| format[*i] == 'o')
+		return (handle_hex(arg_p, fd, format[*i], specs));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
