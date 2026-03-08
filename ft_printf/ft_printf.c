@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 13:46:57 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 16:22:31 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,13 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 			(*i)++;
 		}
 		specs.width = ft_atoi(&format[*i]);
+		while (ft_isdigit(format[*i]))
+			(*i)++;
+	}
+	if (format[*i] == '.')
+	{
+		(*i)++;
+		specs.precision = ft_atoi(&format[*i]);
 		while (ft_isdigit(format[*i]))
 			(*i)++;
 	}
