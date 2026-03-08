@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 12:38:20 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 12:50:02 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int	manage_specs(t_specs specs, size_t len, int fd)
 	ret = 0;
 	if (specs.width) {
 		c = ' ';
-		if (specs.zero_pad && (specs.format_flag == 'd' || specs.format_flag == 'i'
-			|| specs.format_flag == 'u' || specs.format_flag == 'o'
-			|| specs.format_flag == 'x' || specs.format_flag == 'X'
-			|| specs.format_flag == 'p'))
+		if (!specs.left_justify && specs.zero_pad && (specs.format_flag == 'd'
+			|| specs.format_flag == 'i' || specs.format_flag == 'u' || specs.format_flag == 'o'
+			|| specs.format_flag == 'x' || specs.format_flag == 'X' || specs.format_flag == 'p'))
 			c = '0';
 		while (len < specs.width) {
 			ret += ft_putchar_fd(c, fd);
@@ -116,8 +115,12 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 	ft_bzero(&specs, sizeof(specs));
 	if (ft_isdigit(format[*i]))
 	{
-		while (format[*i] == '0') {
-			specs.zero_pad = 1;
+		while (format[*i] == '0' || format[*i] == '-')
+		{
+			if (format[*i] == '0')
+				specs.zero_pad = 1;
+			else
+				specs.left_justify = 1;
 			(*i)++;
 		}
 		specs.width = ft_atoi(&format[*i]);
@@ -144,26 +147,23 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	j = 0;
 	va_start(arg_p, format);
-	while (format[i] != '\0') {
-
-		if (format[i] == '%') {
-
+	while (format[i] != '\0')
+	{
+		if (format[i] == '%')
+		{
 			i++;
 			ret = manage_print_args(arg_p, 1, format, &i);
 			if (ret != -1)
-
 				j += ret;
 			else
-
 				return (-1);
-		} else {
-
+		}
+		else
+		{
 			ret = ft_putchar_fd(format[i], 1);
 			if (ret != -1)
-
 				j += ret;
 			else
-
 				return (-1);
 		}
 		i++;
