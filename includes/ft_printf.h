@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:18:37 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 11:02:30 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 12:08:17 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 
 typedef struct s_specifiers {
 
-	size_t	zero;
-	size_t	sharp;
-	size_t	minus;
 	size_t	width;
+	size_t	left_justify;
+	size_t	zero_pad;
 	size_t	precision;
+	size_t	hash_flag;
+	size_t	format_flag;
 }				t_specs;
 
 char	*ft_itoa_addr(unsigned long long n);

@@ -6,29 +6,32 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 11:26:23 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 12:38:20 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	manage_specs(t_specs specs, size_t len, int fd) {
-
+int	manage_specs(t_specs specs, size_t len, int fd)
+{
 	size_t	j;
 	int		ret;
+	char	c;
 
 	j = 0;
 	ret = 0;
 	if (specs.width) {
-
+		c = ' ';
+		if (specs.zero_pad && (specs.format_flag == 'd' || specs.format_flag == 'i'
+			|| specs.format_flag == 'u' || specs.format_flag == 'o'
+			|| specs.format_flag == 'x' || specs.format_flag == 'X'
+			|| specs.format_flag == 'p'))
+			c = '0';
 		while (len < specs.width) {
-
-			ret += ft_putchar_fd(' ', fd);
+			ret += ft_putchar_fd(c, fd);
 			if (ret != -1)
-
 				j += ret;
 			else
-
 				return (-1);
 			len++;
 		}
@@ -43,6 +46,7 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 	int		j;
 
 	j = 0;
+	specs.format_flag = c;
 	if (c == '%')
 		return (ft_putchar_fd('%', fd));
 	if (c == 'c')
@@ -65,6 +69,7 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 	int		ret;
 	int		j;
 
+	specs.format_flag = c;
 	if (c == 'u')
 		str = ft_itoa_u(va_arg(arg_p, unsigned int));
 	else
@@ -85,6 +90,7 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 	int		ret;
 	int		j;
 
+	specs.format_flag = c;
 	if (c == 'x')
 		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
@@ -110,6 +116,10 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 	ft_bzero(&specs, sizeof(specs));
 	if (ft_isdigit(format[*i]))
 	{
+		while (format[*i] == '0') {
+			specs.zero_pad = 1;
+			(*i)++;
+		}
 		specs.width = ft_atoi(&format[*i]);
 		while (ft_isdigit(format[*i]))
 			(*i)++;
