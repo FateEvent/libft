@@ -6,13 +6,13 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 12:50:02 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 13:17:52 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	manage_specs(t_specs specs, size_t len, int fd)
+int	manage_specs_right(t_specs specs, size_t len, int fd)
 {
 	size_t	j;
 	int		ret;
@@ -20,11 +20,34 @@ int	manage_specs(t_specs specs, size_t len, int fd)
 
 	j = 0;
 	ret = 0;
-	if (specs.width) {
+	if (specs.width && specs.left_justify) {
 		c = ' ';
-		if (!specs.left_justify && specs.zero_pad && (specs.format_flag == 'd'
-			|| specs.format_flag == 'i' || specs.format_flag == 'u' || specs.format_flag == 'o'
-			|| specs.format_flag == 'x' || specs.format_flag == 'X' || specs.format_flag == 'p'))
+		while (len < specs.width) {
+			ret += ft_putchar_fd(c, fd);
+			if (ret != -1)
+				j += ret;
+			else
+				return (-1);
+			len++;
+		}
+	}
+	return (j);
+}
+
+int	manage_specs_left(t_specs specs, size_t len, int fd)
+{
+	size_t	j;
+	int		ret;
+	char	c;
+
+	j = 0;
+	ret = 0;
+	if (specs.width && !specs.left_justify) {
+		c = ' ';
+		if (specs.zero_pad && (specs.format_flag == 'd' || specs.format_flag == 'i'
+			|| specs.format_flag == 'u' || specs.format_flag == 'o'
+			|| specs.format_flag == 'x' || specs.format_flag == 'X'
+			|| specs.format_flag == 'p'))
 			c = '0';
 		while (len < specs.width) {
 			ret += ft_putchar_fd(c, fd);
@@ -43,23 +66,27 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 	char	*str;
 	int		ret;
 	int		j;
+	int		k;
 
 	j = 0;
+	k = 0;
 	specs.format_flag = c;
 	if (c == '%')
 		return (ft_putchar_fd('%', fd));
 	if (c == 'c')
 	{
-		j = manage_specs(specs, 1, fd);
+		j = manage_specs_left(specs, 1, fd);
 		ret = ft_putchar_fd(va_arg(arg_p, int), fd);
-		return ((j == -1 || ret == -1) ? -1 : j + ret);
+		k = manage_specs_right(specs, 1, fd);
+		return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
 	}
 	str = va_arg(arg_p, char *);
 	if (!str)
 		str = "(null)";
-	j = manage_specs(specs, ft_strlen(str), fd);
+	j = manage_specs_left(specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
-	return ((j == -1 || ret == -1) ? -1 : j + ret);
+	k = manage_specs_right(specs, ft_strlen(str), fd);
+	return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
 }
 
 static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
@@ -67,6 +94,7 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 	char	*str;
 	int		ret;
 	int		j;
+	int		k;
 
 	specs.format_flag = c;
 	if (c == 'u')
@@ -75,12 +103,11 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa(va_arg(arg_p, int));
 	if (!str)
 		return (-1);
-	j = manage_specs(specs, ft_strlen(str), fd);
+	j = manage_specs_left(specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
+	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);
-	if (j == -1 || ret == -1)
-		return (-1);
-	return (j + ret);
+	return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
 }
 
 static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
@@ -88,6 +115,7 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 	char	*str;
 	int		ret;
 	int		j;
+	int		k;
 
 	specs.format_flag = c;
 	if (c == 'x')
@@ -100,12 +128,11 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
 	if (!str)
 		return (-1);
-	j = manage_specs(specs, ft_strlen(str), fd);
+	j = manage_specs_left(specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
+	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);
-	if (j == -1 || ret == -1)
-		return (-1);
-	return (j + ret);
+	return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
 }
 
 int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
@@ -113,7 +140,7 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 	t_specs	specs;
 
 	ft_bzero(&specs, sizeof(specs));
-	if (ft_isdigit(format[*i]))
+	if (ft_isdigit(format[*i]) || format[*i] == '-')
 	{
 		while (format[*i] == '0' || format[*i] == '-')
 		{
