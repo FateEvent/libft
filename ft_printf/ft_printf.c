@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 21:31:02 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 10:48:32 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,35 +84,38 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 
 		char	*str;
 		size_t	len;
-		int		num;
 
-		num = va_arg(arg_p, int);
-		str = ft_itoa(num);
+		str = ft_itoa(va_arg(arg_p, int));
 		if (!str)
 
 			return (-1);
 		len = ft_strlen(str);
-		free(str);
 		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
-		ret = ft_putnbr_fd(num, fd);
+		}
+		ret = ft_putstr_fd(str, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
 	} else if (format[*i] == 's') {
 
 		char	*str;
+		size_t	len;
 
 		str = va_arg(arg_p, char *);
-		ret = manage_specs(specs, ft_strlen(str), fd);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
@@ -128,58 +131,144 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i) {
 			return (-1);
 	} else if (format[*i] == 'o') {
 
-		ret = ft_putoctal(va_arg(arg_p, int), "01234567", fd);
+		char	*str;
+		size_t	len;
+
+		str = ft_itoa_base(va_arg(arg_p, int), "01234567");
+		if (!str)
+
+			return (-1);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
+		ret = ft_putstr_fd(str, fd);
+		if (ret != -1)
+
+			j += ret;
+		else {
+
+			free(str);
+			return (-1);
+		}
 	} else if (format[*i] == 'u') {
 
-		ret = ft_put_unsigned(va_arg(arg_p, int), "0123456789", fd);
+		char	*str;
+		size_t	len;
+
+		str = ft_itoa_u(va_arg(arg_p, unsigned int));
+		if (!str)
+
+			return (-1);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
+		ret = ft_putstr_fd(str, fd);
+		if (ret != -1)
+
+			j += ret;
+		else {
+
+			free(str);
+			return (-1);
+		}
 	} else if (format[*i] == 'x') {
 
-		ret = ft_puthex(va_arg(arg_p, unsigned int), "0123456789abcdef", fd);
+		char	*str;
+		size_t	len;
+
+		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789abcdef");
+		if (!str)
+
+			return (-1);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
+		ret = ft_putstr_fd(str, fd);
+		if (ret != -1)
+
+			j += ret;
+		else {
+
+			free(str);
+			return (-1);
+		}
 	} else if (format[*i] == 'X') {
 
-		ret = ft_puthex(va_arg(arg_p, unsigned int), "0123456789ABCDEF", fd);
+		char	*str;
+		size_t	len;
+
+		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789ABCDEF");
+		if (!str)
+
+			return (-1);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
+		ret = ft_putstr_fd(str, fd);
+		if (ret != -1)
+
+			j += ret;
+		else {
+
+			free(str);
+			return (-1);
+		}
 	} else if (format[*i] == 'p') {
 
-		ret = ft_putaddr(va_arg(arg_p, unsigned long long), fd);
+		char	*str;
+		size_t	len;
+
+		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
+		if (!str)
+
+			return (-1);
+		len = ft_strlen(str);
+		ret = manage_specs(specs, len, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
-	} else {
-
-		ret = ft_putchar_fd(format[*i], fd);
+		}
+		ret = ft_putstr_fd(str, fd);
 		if (ret != -1)
 
 			j += ret;
-		else
+		else {
 
+			free(str);
 			return (-1);
+		}
 	}
 	return (j);
 }

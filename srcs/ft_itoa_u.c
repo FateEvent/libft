@@ -1,58 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_itoa_u.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 14:56:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 10:56:45 by fab              ###   ########.fr       */
+/*   Created: 2026/03/08 10:06:35 by fab               #+#    #+#             */
+/*   Updated: 2026/03/08 10:53:26 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static unsigned int	len_calculator_addr(unsigned long long n)
+static unsigned int	len_calculator_u(unsigned int n)
 {
-	unsigned long long	i;
+	unsigned int	i;
 
 	i = 0;
 	if (n == 0)
-		i = 3;
+		i = 1;
 	while (n != 0)
 	{
-		n /= 16;
+		n /= 10;
 		i++;
 	}
-	return (i + 2);
+	return (i);
 }
 
-char	*ft_itoa_addr(unsigned long long n)
+char	*ft_itoa_u(unsigned int n)
 {
-	unsigned long long	i;
-	unsigned long long	x;
-	unsigned long long	len;
-	char				*base;
-	char	        	*res;
-
-	base = "0123456789abcdef";
+	unsigned int		i;
+	long unsigned int	x;
+	unsigned int		len;
+	char				*res;
 
 	i = 0;
-	x = n;
-	len = len_calculator_addr(n);
+	x = (long unsigned int)n;
+	len = len_calculator_u(n);
 	res = (char *)malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
-	if (x == 0) {
-		return (ft_strcpy(res, "0x0"));
-	}
-	while (i < len_calculator_addr(n) && x != 0)
+	while (i < len_calculator_u(n) && x != 0)
 	{
-		res[i++] = (base[x % 16]);
-		x /= 16;
+		res[i++] = 48 + (x % 10);
+		x /= 10;
 	}
-	res[i++] = 'x';
-	res[i++] = '0';
 	res[i] = '\0';
 	ft_rev_str(res);
 	write_zeroes(res, n);

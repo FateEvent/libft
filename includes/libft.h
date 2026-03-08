@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 21:53:20 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 11:03:08 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ void				ft_lstsort(t_list **begin_list, int (*cmp)());
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // Addenda
+int					ft_put_unsigned(int nbr, char *base, int fd);
+int					ft_putoctal(int nbr, char *base, int fd);
+int					ft_puthex(unsigned int nbr, char *base, int fd);
+int					ft_putaddr(unsigned long long nbr, int fd);
 int					strnumcheck(const char *str);
 void				ft_sort_int_tab(int	*tab, int size);
 void				ft_sort_chartab(char **tab);
@@ -151,5 +155,7 @@ void				ft_intarr_freer(int **arr);
 void				ft_intarr_freer_index(int **arr, ssize_t index);
 void				ft_matrix_display(int **arr, size_t len);
 char				*ft_itoa_base(int n, char *base);
+char				*ft_itoa_u(unsigned int n);
+char				*ft_itoa_base_u(unsigned int n, char *base);
 
 #endif

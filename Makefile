@@ -6,7 +6,7 @@
 #    By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2026/03/07 21:28:13 by fab              ###   ########.fr        #
+#    Updated: 2026/03/08 11:06:59 by fab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS 		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_strtolol.c ft_arr_freer.c ft_arr_freer_index.c ft_puterror.c \
 		get_next_line.c ft_arrdup.c ft_arrlen.c ft_arr_display.c \
 		ft_arr_display_size.c ft_intarr_freer.c ft_atol.c ft_atoll_u.c strnumcheck.c \
-		ft_itoa_base.c
+		ft_put_unsigned.c ft_putoctal.c ft_puthex.c ft_putaddr.c ft_itoa_base.c \
+		ft_itoa_u.c ft_itoa_base_u.c
 
 SRCS_PRINTF	=	ft_printf.c ft_printf_utils.c ft_dprintf.c
 

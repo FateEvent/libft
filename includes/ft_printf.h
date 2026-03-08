@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:18:37 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 18:28:36 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/08 11:02:30 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ typedef struct s_specifiers {
 	size_t	precision;
 }				t_specs;
 
-int		ft_put_unsigned(int nbr, char *base, int fd);
-int		ft_putoctal(int nbr, char *base, int fd);
-int		ft_puthex(unsigned int nbr, char *base, int fd);
-int		ft_putaddr(unsigned long long nbr, int fd);
+char	*ft_itoa_addr(unsigned long long n);
 int		manage_print_args(va_list arg_p, int fd, const char *format, size_t *i);
 int		ft_dprintf(int fd, const char *format, ...);
 int		ft_printf(const char *format, ...);
