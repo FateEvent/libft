@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 16:02:09 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/04 18:55:50 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/09 11:15:57 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include "libft.h"
+#include "ft_printf.h"
 # include "get_next_line.h"
 
 typedef struct s_map_reader
