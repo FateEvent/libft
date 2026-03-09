@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 16:22:31 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/09 15:01:49 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,47 @@ int	manage_specs_right(t_specs specs, size_t len, int fd)
 	}
 	return (j);
 }
-
-int	manage_specs_left(t_specs *specs, size_t len, int fd)
+/*
+char	*manipulate_string(t_specs *specs, char *str)
+{
+	char	*newstr;
+	size_t	len;
+	size_t	i;
+	
+	newstr = NULL;
+	if (!str || !specs)
+		return (NULL);
+	len = ft_strlen(str);
+	if (!len)
+		return (NULL);
+	specs->width = specs->width > specs->precision ? specs->width - specs->precision : 0;
+	if (len < specs->precision)
+	{
+		i = 0;
+		while ()
+	}
+}
+*/
+int	manage_specs(t_specs *specs, char *str, int fd)
 {
 	size_t	j;
+	size_t	len;
 	int		ret;
 	char	c;
 	char	*prefix;
 
 	j = 0;
 	ret = 0;
+	len = ft_strlen(str);
+	// check for 0 precision for strings: print ""
+//	manipulate_string(specs, str);
 	if (specs->hash_flag && (specs->format_flag == 'o' || specs->format_flag == 'x'
 		|| specs->format_flag == 'X')) {
-		if (specs->format_flag == 'o')
+		if (specs->format_flag == 'o') {
 			prefix = "0";
+			if (str[0] == 0)
+				prefix = "";
+		}
 		else if (specs->format_flag == 'x')
 			prefix = "0x";
 		else
@@ -58,6 +85,8 @@ int	manage_specs_left(t_specs *specs, size_t len, int fd)
 			return (-1);
 		if (specs->width)
 			specs->width -= ft_strlen(prefix);
+		if (specs->precision)
+			specs->precision -= ft_strlen(prefix);
 	}
 	if (specs->width && !specs->left_justify) {
 		c = ' ';
@@ -92,7 +121,7 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 		return (ft_putchar_fd('%', fd));
 	if (c == 'c')
 	{
-		j = manage_specs_left(&specs, 1, fd);
+		j = manage_specs(&specs, 1, fd);
 		ret = ft_putchar_fd(va_arg(arg_p, int), fd);
 		k = manage_specs_right(specs, 1, fd);
 		return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
@@ -100,7 +129,7 @@ static int	handle_alpha(va_list arg_p, int fd, char c, t_specs specs)
 	str = va_arg(arg_p, char *);
 	if (!str)
 		str = "(null)";
-	j = manage_specs_left(&specs, ft_strlen(str), fd);
+	j = manage_specs(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	return ((j == -1 || ret == -1 || k == -1) ? -1 : j + ret + k);
@@ -120,7 +149,7 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa(va_arg(arg_p, int));
 	if (!str)
 		return (-1);
-	j = manage_specs_left(&specs, ft_strlen(str), fd);
+	j = manage_specs(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);
@@ -145,7 +174,7 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 		str = ft_itoa_addr(va_arg(arg_p, unsigned long long));
 	if (!str)
 		return (-1);
-	j = manage_specs_left(&specs, ft_strlen(str), fd);
+	j = manage_specs(&specs, ft_strlen(str), fd);
 	ret = ft_putstr_fd(str, fd);
 	k = manage_specs_right(specs, ft_strlen(str), fd);
 	free(str);

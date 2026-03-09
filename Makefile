@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+         #
+#    By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2026/03/08 11:06:59 by fab              ###   ########.fr        #
+#    Updated: 2026/03/09 15:26:00 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ OBJS_NET	=	$(addprefix networking/, ${SRCS_NET:.c=.o})
 CFLAGS		=	-Wall -Wextra -Werror
 INCLUDES	=	-I./includes
 
-NAME		= libft.a
+NAME		=	libft.a
 
 .c.o:
 		gcc ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
