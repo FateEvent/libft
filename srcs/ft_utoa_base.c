@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base_u.c                                   :+:      :+:    :+:   */
+/*   ft_utoa_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,7 +27,7 @@ static unsigned int	len_calculator_base_u(unsigned int n, long unsigned int base
 	return (i);
 }
 
-char	*ft_itoa_base_u(unsigned int n, char *base)
+char	*ft_utoa_base(unsigned int n, char *base)
 {
 	unsigned int		i;
 	long unsigned int	x;

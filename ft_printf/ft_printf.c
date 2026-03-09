@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/09 15:01:49 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/09 21:34:05 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static int	handle_digit(va_list arg_p, int fd, char c, t_specs specs)
 
 	specs.format_flag = c;
 	if (c == 'u')
-		str = ft_itoa_u(va_arg(arg_p, unsigned int));
+		str = ft_utoa(va_arg(arg_p, unsigned int));
 	else
 		str = ft_itoa(va_arg(arg_p, int));
 	if (!str)
@@ -165,9 +165,9 @@ static int	handle_hex(va_list arg_p, int fd, char c, t_specs specs)
 
 	specs.format_flag = c;
 	if (c == 'x')
-		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789abcdef");
+		str = ft_utoa_base(va_arg(arg_p, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
-		str = ft_itoa_base_u(va_arg(arg_p, unsigned int), "0123456789ABCDEF");
+		str = ft_utoa_base(va_arg(arg_p, unsigned int), "0123456789ABCDEF");
 	else if (c == 'o')
 		str = ft_itoa_base(va_arg(arg_p, int), "01234567");
 	else
