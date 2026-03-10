@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/07 18:28:55 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/10 00:58:54 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,27 @@
 
 int	ft_dprintf(int fd, const char *format, ...)
 {
-	va_list	arg_p;
+	va_list	args;
 	size_t	i;
-	size_t	j;
-	int		ret;
+	int		total_printed;
 
-	if (fd >= 0)
+	if (fd > 0)
 	{
-		i = 0;
-		j = 0;
-		va_start(arg_p, format);
-		while (format[i] != '\0')
+		va_start(args, format);
+		total_printed = 0;
+		while (format[i])
 		{
 			if (format[i] == '%')
 			{
 				i++;
-				ret = manage_print_args(arg_p, fd, format, &i);
-				if (ret != -1)
-					j += ret;
-				else
-					return (-1);
+				total_printed += manage_print_args(args, fd, format, &i);
 			}
 			else
-			{
-				ret = ft_putchar_fd(format[i], fd);
-				if (ret != -1)
-					j += ret;
-				else
-					return (-1);
-			}
+				total_printed += write(fd, &format[i], 1);
 			i++;
 		}
-		va_end(arg_p);
-		return (j);
+		va_end(args);
+		return (total_printed);
 	}
 	return (-1);
 }

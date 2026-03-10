@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/08 10:56:45 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/10 09:34:31 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static unsigned int	len_calculator_addr(unsigned long long n)
 	return (i + 2);
 }
 
-char	*ft_itoa_addr(unsigned long long n)
+char	*ft_utoa_addr(unsigned long long n)
 {
 	unsigned long long	i;
 	unsigned long long	x;

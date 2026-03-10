@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/09 21:34:05 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/10 00:05:21 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,6 @@ void				ft_matrix_display(int **arr, size_t len);
 char				*ft_itoa_base(int n, char *base);
 char				*ft_utoa(unsigned int n);
 char				*ft_utoa_base(unsigned int n, char *base);
+char				*ft_str_toupper(char *str);
 
 #endif
