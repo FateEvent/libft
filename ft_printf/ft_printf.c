@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/10 01:08:29 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/10 10:11:14 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	manage_specs(t_specs *specs, char *str, long long value)
 
 	// 2. REST OF YOUR LOGIC (Precision and Width)
 	len = ft_strlen(str);
-	
+
 	// Case value 0 and precision 0
 	if (specs->has_precision && specs->precision == 0 && value == 0)
 		len = 0;
@@ -65,6 +65,10 @@ int	manage_specs(t_specs *specs, char *str, long long value)
 		specs->width = 0;
 
 	// Pad character logic...
+	if (specs->zero_pad)
+		specs->pad_char = '0';
+	else
+		specs->pad_char = ' ';
 	return (1);
 }
 
@@ -81,12 +85,14 @@ int	print_n_chars(char c, int n, int fd)
 	return (i); // Très utile pour ton return final de ft_printf
 }
 
-int write_formatted_output(char *str, t_specs specs, int fd)
+int	write_formatted_output(char *str, t_specs specs, int fd)
 {
-	int count;
-	int len;
+	size_t	count;
+	size_t	len;
+	size_t	index;
 
 	count = 0;
+	index = 0;
 	len = ft_strlen(str);
 	// Adjust len for the special case: value 0 and precision 0
 	if (specs.has_precision && specs.precision == 0 && !ft_strncmp(str, "0", 1))
@@ -97,8 +103,12 @@ int write_formatted_output(char *str, t_specs specs, int fd)
 		count += print_n_chars(' ', specs.width, fd);
 
 	// 2. THE PREFIX: Print '-', '+', ' ', or '0x'
-	if (specs.prefix_size > 0)
+	if (specs.prefix_size > 0 && ft_strncmp(specs.prefix, str, specs.prefix_size))
 		count += write(fd, specs.prefix, specs.prefix_size);
+	else if (specs.prefix_size > 0 && !ft_strncmp(specs.prefix, str, specs.prefix_size)) {
+		count += write(fd, specs.prefix, specs.prefix_size);
+		index = specs.prefix_size;
+	}
 
 	// 3. ZERO PADDING: Print '0' from either width (if flag 0) or precision
 	if (!specs.left_justify && specs.pad_char == '0')
@@ -107,7 +117,7 @@ int write_formatted_output(char *str, t_specs specs, int fd)
 
 	// 4. THE CONTENT: Print the actual digits
 	if (len > 0)
-		count += write(fd, str, len);
+		count += write(fd, &str[index], len);
 
 	// 5. LEFT ALIGNMENT: Print spaces last (if left-justified)
 	if (specs.left_justify)
