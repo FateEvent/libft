@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/10 10:11:14 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/10 12:10:17 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ int	manage_specs(t_specs *specs, char *str, long long value)
 	if (specs->has_precision && specs->precision == 0 && value == 0)
 		len = 0;
 
+	// fix for the function printing the address (already containing
+	// the 0x prefix)
+	if (specs->format_flag == 'p')
+		len -= specs->prefix_size;
 	// Precision zeros (don't subtract prefix_size here!)
 	if (specs->precision > len && specs->format_flag != 's')
 		specs->precision_zeroes = specs->precision - len;
@@ -65,10 +69,9 @@ int	manage_specs(t_specs *specs, char *str, long long value)
 		specs->width = 0;
 
 	// Pad character logic...
-	if (specs->zero_pad)
+	specs->pad_char = ' ';
+	if (specs->zero_pad && !specs->has_precision)
 		specs->pad_char = '0';
-	else
-		specs->pad_char = ' ';
 	return (1);
 }
 
