@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 20:54:51 by faventur          #+#    #+#             */
-/*   Updated: 2023/02/13 16:57:24 by faventur         ###   ########.fr       */
+/*   Updated: 2026/03/11 11:53:39 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ long long	ft_atol_op(const char *nptr, size_t i, long long res,
 	return (res);
 }
 
-long long	ft_atol(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	size_t          counter;
-	size_t          i;
+	size_t		counter;
+	size_t		i;
 	long long	res;
 
 	counter = 0;

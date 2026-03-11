@@ -1,4 +1,5 @@
 #include "./includes/libft.h"
+#include "./includes/ft_printf.h"
 
 int main()
 {
@@ -21,10 +22,13 @@ int main()
 	printf("%d\n", printf("%s\t%p\n", s, s));
 	printf("%d\n", printf("%s\t%p\n", t, t));
 
-	printf("%lld\n", atol("-9223372036854775808"));
+	printf("%ld\n", atol("-9223372036854775808"));
 	printf("%lld\n", ft_atol("-9223372036854775808"));
-	printf("%lld\n", atol("9223372036854775807"));
+	printf("%ld\n", atol("9223372036854775807"));
 	printf("%lld\n", ft_atol("9223372036854775807"));
-	printf("%llu\n", ft_atoll_u("-9223372036854775808"));
-	printf("%llu\n", ft_atoll_u("9223372036854775807"));	
+	printf("%llu\n", ft_atollu("-9223372036854775808"));
+	printf("%llu\n", ft_atollu("9223372036854775807"));
+
+	printf("%#0.0s empty string\n", "house");
+	ft_printf("%#0.0s empty string\n", "house");
 }

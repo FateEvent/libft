@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll_u.c                                       :+:      :+:    :+:   */
+/*   ft_atollu.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 /*
-** The ft_atoll_u() function converts the initial portion of the string
+** The ft_atollu() function converts the initial portion of the string
 ** pointed to by nptr to unsigned long long int.
 **
 ** Return Value: The converted value.
@@ -27,7 +27,7 @@ static unsigned long long	progress_bar_unsigned(const char *nptr, size_t i,
 	return (res);
 }
 
-static unsigned long long	ft_atoll_u_op(const char *nptr, size_t i,
+static unsigned long long	ft_atollu_op(const char *nptr, size_t i,
 	unsigned long long res)
 {
 	res = progress_bar_unsigned(nptr, i, res);
@@ -36,7 +36,7 @@ static unsigned long long	ft_atoll_u_op(const char *nptr, size_t i,
 	return (res);
 }
 
-unsigned long long	ft_atoll_u(const char *nptr)
+unsigned long long	ft_atollu(const char *nptr)
 {
 	unsigned long long	i;
 	unsigned long long	res;
@@ -49,5 +49,5 @@ unsigned long long	ft_atoll_u(const char *nptr)
 		return (-1);
 	if (nptr[i] && nptr[i] == '+')
 		i++;
-	return (ft_atoll_u_op(nptr, i, res));
+	return (ft_atollu_op(nptr, i, res));
 }

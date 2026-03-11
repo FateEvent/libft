@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/10 00:05:21 by fab              ###   ########.fr       */
+/*   Updated: 2026/03/11 11:55:50 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int					ft_strnequ(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *nptr);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_strdup(const char *src);
-long long			ft_atol(const char *nptr);
-unsigned long long	ft_atoll_u(const char *nptr);
+long				ft_atol(const char *nptr);
+unsigned long long	ft_atollu(const char *nptr);
 
 // Supplementary functions
 char				*ft_substr(char const *s, unsigned int start, size_t len);
