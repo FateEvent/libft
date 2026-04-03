@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/04/03 12:25:40 by fab              ###   ########.fr       */
+/*   Updated: 2026/04/03 21:23:56 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ void				ft_lstsort(t_list **begin_list, int (*cmp)());
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // Addenda
-int					ft_put_unsigned(int nbr, char *base, int fd);
+int					ft_put_unsigned(size_t nbr);
+int					ft_put_unsigned_fd(size_t nbr, char *base, int fd);
 int					ft_putoctal(int nbr, char *base, int fd);
 int					ft_puthex(unsigned int nbr, char *base, int fd);
 int					ft_putaddr_fd(void *addr, int fd);
