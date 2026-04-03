@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putaddr.c                                       :+:      :+:    :+:   */
+/*   ft_putaddr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 11:01:43 by fab               #+#    #+#             */
-/*   Updated: 2026/03/08 11:01:57 by fab              ###   ########.fr       */
+/*   Updated: 2026/04/03 12:22:56 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putaddr(unsigned long long nbr, int fd)
+int	ft_putaddr_fd(void *addr, int fd)
 {
-	int	i;
-	int	memory[100];
-	int	ret;
-	int	j;
+	unsigned long long	nbr;
+	int					i;
+	int					memory[100];
+	int					ret;
+	int					j;
 
 	i = 0;
 	j = 0;
+	nbr = (unsigned long long)addr;
 	if (nbr == 0)
 		return (ft_putstr_fd("0x0", fd));
 	while (nbr)
