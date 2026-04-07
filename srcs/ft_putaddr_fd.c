@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putaddr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 11:01:43 by fab               #+#    #+#             */
-/*   Updated: 2026/04/03 12:22:56 by fab              ###   ########.fr       */
+/*   Updated: 2026/04/07 15:44:42 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_putaddr_fd(void *addr, int fd)
 {
 	unsigned long long	nbr;
 	int					i;
-	int					memory[100];
+	unsigned char		memory[20];
 	int					ret;
 	int					j;
 
@@ -27,8 +27,8 @@ int	ft_putaddr_fd(void *addr, int fd)
 		return (ft_putstr_fd("0x0", fd));
 	while (nbr)
 	{
-		memory[i] = nbr % 16;
-		nbr /= 16;
+		memory[i] = nbr & 0xF;	// Retrieve the last 4 bits
+		nbr >>= 4;				// Right-shift the last 4 bits
 		i++;
 	}
 	ret = ft_putstr_fd("0x", fd);
