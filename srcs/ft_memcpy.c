@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:18:18 by faventur          #+#    #+#             */
-/*   Updated: 2022/06/27 17:26:33 by faventur         ###   ########.fr       */
+/*   Updated: 2026/04/08 18:37:47 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,14 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t size)
 {
-	size_t	i;
+	unsigned char	*d;
+	unsigned char	*s;
 
-	if (!dst || !src || !size)
+	if (!dst || !src)
 		return (NULL);
-	i = 0;
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
 	while (size--)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
+		*d++ = *s++;
 	return (dst);
 }
