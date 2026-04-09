@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/04/07 15:34:42 by faventur         ###   ########.fr       */
+/*   Updated: 2026/04/09 12:53:36 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ int					ft_put_unsigned(size_t nbr);
 int					ft_put_unsigned_fd(size_t nbr, char *base, int fd);
 int					ft_putaddr_fd(void *addr, int fd);
 int					ft_putaddr_endl_fd(void *addr, int fd);
+int					ft_putaddr(void *addr);
+int					ft_putaddr_endl(void *addr);
 int					strnumcheck(const char *str);
 void				ft_sort_int_tab(int	*tab, int size);
 void				ft_sort_chartab(char **tab);
