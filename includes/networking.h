@@ -19,5 +19,6 @@ int				is_hex(char c);
 int				parse_mac(char *mac);
 struct in_addr	get_my_ip();
 unsigned short	compute_checksum(void *packet, int size);
+int				str_ipcheck(const char *str);
 
 #endif

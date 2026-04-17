@@ -53,7 +53,7 @@ SRCS_BT		=	btree_create_node.c btree_apply_prefix.c btree_apply_infix.c \
 		btree_level_count.c ft_btree_clear.c
 
 SRCS_NET	=	parse_ip.c is_hex.c parse_mac.c get_my_ip.c \
-		compute_checksum.c
+		compute_checksum.c str_ipcheck.c
 
 
 OBJS		=	$(addprefix srcs/, ${SRCS:.c=.o})
