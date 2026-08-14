@@ -21,4 +21,10 @@ struct in_addr	get_my_ip();
 unsigned short	compute_checksum(void *packet, int size);
 int				str_ipcheck(const char *str);
 
+// time
+long double			timeval_tolong(struct timeval *time);
+long double			length_diff(long double present, long double past);
+long double			get_the_time(void);
+void				countdown(struct timeval *start, long duration);
+
 #endif
