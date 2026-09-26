@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 22:19:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/04/09 12:53:36 by fab              ###   ########.fr       */
+/*   Updated: 2026/09/26 17:01:36 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ int					ft_power(int n, int power);
 char				ft_binary2char(char *binary);
 int					ft_strtolol(const char *str);
 void				ft_arr_freer(char **arr);
-char				**ft_arr_freer_index(char **arr, ssize_t *index);
-char				**ft_arr_freer_reverse_index(char **arr, size_t *index, size_t size);
+char				**ft_arr_freer_index(char **arr, ssize_t index);
+char				**ft_arr_freer_reverse_index(char **arr, size_t index, size_t size);
 void				ft_puterror(const char *str);
 char				**ft_arrdup(char **arr);
 size_t				ft_arrlen(char **array);

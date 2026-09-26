@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 16:08:04 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/18 13:19:29 by faventur         ###   ########.fr       */
+/*   Updated: 2026/09/26 17:04:05 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**ft_arrdup(char **arr)
 	{
 		dup[arr_len] = ft_strdup(arr[arr_len]);
 		if (!dup[arr_len])
-			return (ft_arr_freer_reverse_index(dup, &arr_len, i));
+			return (ft_arr_freer_reverse_index(dup, arr_len, i));
 	}
 	return (dup);
 }
