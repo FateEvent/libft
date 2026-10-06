@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:18:37 by faventur          #+#    #+#             */
-/*   Updated: 2026/10/06 16:29:48 by fab              ###   ########.fr       */
+/*   Updated: 2026/10/06 17:26:12 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,13 @@ char	*ft_utoa_addr(unsigned long long n);
 // ft_dprintf
 int		ft_dprintf(int fd, const char *format, ...);
 
-// ft_asprintf
-int		ft_asprintf(char **sptr, const char *format, ...);
+// ft_vasprintf
+int		ft_vasprintf(char **sptr, const char *format, va_list ap);
 void	manage_print_args_for_buffer(va_list arg_p, const char *format, int *i);
 void	write_char_to_buffer(char c);
+
+// ft_asprintf
+int		ft_asprintf(char **sptr, const char *format, ...);
 
 
 #endif
