@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/10/06 17:18:39 by fab              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
-int	manage_specs(t_specs *specs, char *str, long long value)
+int	manage_specs_for_buffer(t_specs *specs, char *str, long long value)
 {
 	size_t  len;
 
@@ -67,20 +55,52 @@ int	manage_specs(t_specs *specs, char *str, long long value)
 	return (1);
 }
 
-int	print_n_chars(char c, int n, int fd)
+void	write_char_to_buffer(char c)
 {
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		ft_putchar_fd(c, fd);
-		i++;
+	if (writer.buf && writer.written < writer.size - 1) {
+		writer.buf[writer.written] = c;
 	}
-	return (i);
+	writer.written++;
 }
 
-int	write_formatted_output(char *str, t_specs specs, int fd)
+void	write_same_char_to_buffer(char c, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n) {
+		write_char_to_buffer(c);
+		i++;
+	}
+}
+
+void	write_string_to_buffer(char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len) {
+		write_char_to_buffer(str[i]);
+		i++;
+	}
+}
+
+void	write_n_chars_of_string_to_buffer(char *str, size_t n)
+{
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(str) < n ? ft_strlen(str) : n;
+	i = 0;
+	while (i < len) {
+		write_char_to_buffer(str[i]);
+		i++;
+	}
+}
+
+int	write_formatted_output_to_buffer(char *str, t_specs specs)
 {
 	size_t	count;
 	size_t	len;
@@ -93,31 +113,30 @@ int	write_formatted_output(char *str, t_specs specs, int fd)
 		len = 0;
 
 	if (!specs.left_justify && specs.pad_char == ' ')
-		count += print_n_chars(' ', specs.width, fd);
+		write_same_char_to_buffer(' ', specs.width);
 
 	if (specs.prefix_size > 0 && ft_strncmp(specs.prefix, str, specs.prefix_size))
-		count += write(fd, specs.prefix, specs.prefix_size);
+		write_n_chars_of_string_to_buffer(specs.prefix, specs.prefix_size);
 	else if (specs.prefix_size > 0 && !ft_strncmp(specs.prefix, str, specs.prefix_size)) {
-		count += write(fd, specs.prefix, specs.prefix_size);
+		write_n_chars_of_string_to_buffer(specs.prefix, specs.prefix_size);
 		index = specs.prefix_size;
 	}
 
 	if (!specs.left_justify && specs.pad_char == '0')
-		count += print_n_chars('0', specs.width, fd);
-	count += print_n_chars('0', specs.precision_zeroes, fd);
+		write_same_char_to_buffer('0', specs.width);
+	write_same_char_to_buffer('0', specs.precision_zeroes);
 
 	if (len > 0)
-		count += write(fd, &str[index], len);
+		write_n_chars_of_string_to_buffer(&str[index], len);
 
 	if (specs.left_justify)
-		count += print_n_chars(' ', specs.width, fd);
+		write_same_char_to_buffer(' ', specs.width);
 
 	return (count);
 }
 
-int	handle_string(char *str, t_specs specs, int fd)
+void	handle_string_for_buffer(char *str, t_specs specs)
 {
-	int count = 0;
 	if (!str) str = "(null)";
 
 	size_t len = ft_strlen(str);
@@ -128,45 +147,38 @@ int	handle_string(char *str, t_specs specs, int fd)
 	size_t spaces = (specs.width > len) ? specs.width - len : 0;
 
 	if (!specs.left_justify)
-		count += print_n_chars(' ', spaces, fd);
-	count += write(fd, str, len);
+		write_same_char_to_buffer(' ', spaces);
+	write_n_chars_of_string_to_buffer(str, len);
 	if (specs.left_justify)
-		count += print_n_chars(' ', spaces, fd);
-
-	return (count);
+		write_same_char_to_buffer(' ', spaces);
 }
 
-int	handle_char(char c, t_specs specs, int fd)
+void	handle_char_for_buffer(char c, t_specs specs)
 {
-	int count = 0;
 	int spaces = (specs.width > 1) ? specs.width - 1 : 0;
 
 	if (!specs.left_justify)
-		count += print_n_chars(' ', spaces, fd);
+		write_same_char_to_buffer(' ', spaces);
 
-	count += write(fd, &c, 1);
+	write_char_to_buffer(c);
 
 	if (specs.left_justify)
-		count += print_n_chars(' ', spaces, fd);
-
-	return (count);
+		write_same_char_to_buffer(' ', spaces);
 }
 
-int	handle_alpha(va_list arg_p, int fd, char flag, t_specs specs)
+void	handle_alpha_for_buffer(va_list arg_p, char flag, t_specs specs)
 {
 	if (flag == 'c')
-		return (handle_char(va_arg(arg_p, int), specs, fd));
-	if (flag == 's')
-		return (handle_string(va_arg(arg_p, char *), specs, fd));
-	if (flag == '%')
-		return (handle_char('%', specs, fd));
-	return (0);
+		handle_char_for_buffer(va_arg(arg_p, int), specs);
+	else if (flag == 's')
+		handle_string_for_buffer(va_arg(arg_p, char *), specs);
+	else if (flag == '%')
+		handle_char_for_buffer('%', specs);
 }
 
-int	handle_digit(va_list arg_p, int fd, char flag, t_specs specs)
+void	handle_digit_for_buffer(va_list arg_p, char flag, t_specs specs)
 {
 	char		*str;
-	int			count;
 	long long	val;
 
 	specs.format_flag = flag;
@@ -180,18 +192,16 @@ int	handle_digit(va_list arg_p, int fd, char flag, t_specs specs)
 	else
 		str = ft_utoa_base(val, "0123456789");
 
-	manage_specs(&specs, str, val);
-	count = write_formatted_output(str, specs, fd);
+	manage_specs_for_buffer(&specs, str, val);
+	write_formatted_output_to_buffer(str, specs);
 
 	free(str);
-	return (count);
 }
 
-int	handle_hex(va_list arg_p, int fd, char flag, t_specs specs)
+void	handle_hex_for_buffer(va_list arg_p, char flag, t_specs specs)
 {
-	char           *str;
-	unsigned long  val;
-	int            count;
+	char			*str;
+	unsigned long	val;
 
 	specs.format_flag = flag;
 	if (flag == 'p')
@@ -213,14 +223,13 @@ int	handle_hex(va_list arg_p, int fd, char flag, t_specs specs)
 		str = tmp;
 	}
 
-	manage_specs(&specs, str, val);
-	count = write_formatted_output(str, specs, fd);
+	manage_specs_for_buffer(&specs, str, val);
+	write_formatted_output_to_buffer(str, specs);
 
 	free(str);
-	return (count);
 }
 
-int	manage_print_args(va_list arg_p, int fd, const char *format, int *i)
+void	manage_print_args_for_buffer(va_list arg_p, const char *format, int *i)
 {
 	t_specs	specs;
 
@@ -256,35 +265,10 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, int *i)
 			(*i)++;
 	}
 	if (format[*i] == 'c' || format[*i] == 's' || format[*i] == '%')
-		return (handle_alpha(arg_p, fd, format[*i], specs));
-	if (format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'u')
-		return (handle_digit(arg_p, fd, format[*i], specs));
-	if (format[*i] == 'x' || format[*i] == 'X' || format[*i] == 'p' 
+		handle_alpha_for_buffer(arg_p, format[*i], specs);
+	else if (format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'u')
+		handle_digit_for_buffer(arg_p, format[*i], specs);
+	else if (format[*i] == 'x' || format[*i] == 'X' || format[*i] == 'p' 
 		|| format[*i] == 'o')
-		return (handle_hex(arg_p, fd, format[*i], specs));
-	return (0);
-}
-
-int	ft_printf(const char *format, ...)
-{
-	va_list	args;
-	int		i;
-	int		total_printed;
-
-	va_start(args, format);
-	total_printed = 0;
-	i = 0;
-	while (format[i])
-	{
-		if (format[i] == '%')
-		{
-			i++;
-			total_printed += manage_print_args(args, 1, format, &i);
-		}
-		else
-			total_printed += ft_putchar(format[i]);
-		i++;
-	}
-	va_end(args);
-	return (total_printed);
+		handle_hex_for_buffer(arg_p, format[*i], specs);
 }

@@ -6,7 +6,7 @@
 #    By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 17:55:49 by faventur          #+#    #+#              #
-#    Updated: 2026/04/09 12:54:13 by fab              ###   ########.fr        #
+#    Updated: 2026/10/06 16:22:19 by fab              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS 		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_str_toupper.c ft_putaddr_endl_fd.c ft_put_unsigned_fd.c ft_putaddr.c \
 		ft_putaddr_endl.c
 
-SRCS_PRINTF	=	ft_printf.c ft_printf_utils.c ft_dprintf.c
+SRCS_PRINTF	=	ft_printf.c ft_printf_utils.c ft_dprintf.c ft_asprintf.c \
+		ft_asprintf_utils.c
 
 SRCS_FT		=	ft_strstrbool.c ft_strnstrbool.c void_star_cmp.c \
 		ft_map_reader.c ft_printerror.c ft_fatal.c ft_strcasecmp.c
