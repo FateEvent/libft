@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:00:26 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/10 12:10:17 by fab              ###   ########.fr       */
+/*   Updated: 2026/10/06 13:43:26 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	print_n_chars(char c, int n, int fd)
 		ft_putchar_fd(c, fd);
 		i++;
 	}
-	return (i); // Très utile pour ton return final de ft_printf
+	return (i);
 }
 
 int	write_formatted_output(char *str, t_specs specs, int fd)
@@ -144,7 +144,7 @@ int	handle_string(char *str, t_specs specs, int fd)
 
 	if (!specs.left_justify)
 		count += print_n_chars(' ', spaces, fd);
-	count += write(1, str, len);
+	count += write(fd, str, len);
 	if (specs.left_justify)
 		count += print_n_chars(' ', spaces, fd);
 
@@ -241,7 +241,7 @@ int handle_hex(va_list arg_p, int fd, char flag, t_specs specs)
 	return (count);
 }
 
-int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
+int	manage_print_args(va_list arg_p, int fd, const char *format, int *i)
 {
 	t_specs	specs;
 
@@ -289,7 +289,7 @@ int	manage_print_args(va_list arg_p, int fd, const char *format, size_t *i)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	size_t	i;
+	int		i;
 	int		total_printed;
 
 	va_start(args, format);
@@ -306,7 +306,7 @@ int	ft_printf(const char *format, ...)
 			total_printed += manage_print_args(args, 1, format, &i);
 		}
 		else
-			total_printed += write(1, &format[i], 1);
+			total_printed += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(args);
