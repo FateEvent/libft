@@ -1,9 +1,8 @@
 #include "ft_printf.h"
 
-t_writer	writer;
-
 int	ft_vasprintf(char **sptr, const char *format, va_list ap)
 {
+	t_writer	writer;
 	va_list		ap_copy;
 	int			i;
 
@@ -19,10 +18,10 @@ int	ft_vasprintf(char **sptr, const char *format, va_list ap)
 		if (format[i] == '%')
 		{
 			i++;
-			manage_print_args_for_buffer(ap_copy, format, &i);
+			manage_print_args_for_buffer(&writer, ap_copy, format, &i);
 		}
 		else
-			write_char_to_buffer(format[i]);
+			write_char_to_buffer(&writer, format[i]);
 		i++;
 	}
 	va_end(ap_copy);
@@ -44,10 +43,10 @@ int	ft_vasprintf(char **sptr, const char *format, va_list ap)
 		if (format[i] == '%')
 		{
 			i++;
-			manage_print_args_for_buffer(ap, format, &i);
+			manage_print_args_for_buffer(&writer, ap, format, &i);
 		}
 		else
-			write_char_to_buffer(format[i]);
+			write_char_to_buffer(&writer, format[i]);
 		i++;
 	}
 	writer.buf[writer.written] = '\0';

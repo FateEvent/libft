@@ -55,26 +55,26 @@ int	manage_specs_for_buffer(t_specs *specs, char *str, long long value)
 	return (1);
 }
 
-void	write_char_to_buffer(char c)
+void	write_char_to_buffer(t_writer *w, char c)
 {
-	if (writer.buf && writer.written < writer.size - 1) {
-		writer.buf[writer.written] = c;
+	if (w->buf && w->written < w->size - 1) {
+		w->buf[w->written] = c;
 	}
-	writer.written++;
+	w->written++;
 }
 
-void	write_same_char_to_buffer(char c, size_t n)
+void	write_same_char_to_buffer(t_writer *w, char c, size_t n)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < n) {
-		write_char_to_buffer(c);
+		write_char_to_buffer(w, c);
 		i++;
 	}
 }
 
-void	write_string_to_buffer(char *str)
+void	write_string_to_buffer(t_writer *w, char *str)
 {
 	size_t	i;
 	size_t	len;
@@ -82,12 +82,12 @@ void	write_string_to_buffer(char *str)
 	len = ft_strlen(str);
 	i = 0;
 	while (i < len) {
-		write_char_to_buffer(str[i]);
+		write_char_to_buffer(w, str[i]);
 		i++;
 	}
 }
 
-void	write_n_chars_of_string_to_buffer(char *str, size_t n)
+void	write_n_chars_of_string_to_buffer(t_writer *w, char *str, size_t n)
 {
 	size_t	i;
 	size_t	len;
@@ -95,12 +95,12 @@ void	write_n_chars_of_string_to_buffer(char *str, size_t n)
 	len = ft_strlen(str) < n ? ft_strlen(str) : n;
 	i = 0;
 	while (i < len) {
-		write_char_to_buffer(str[i]);
+		write_char_to_buffer(w, str[i]);
 		i++;
 	}
 }
 
-int	write_formatted_output_to_buffer(char *str, t_specs specs)
+int	write_formatted_output_to_buffer(t_writer *writer, char *str, t_specs specs)
 {
 	size_t	count;
 	size_t	len;
@@ -113,29 +113,29 @@ int	write_formatted_output_to_buffer(char *str, t_specs specs)
 		len = 0;
 
 	if (!specs.left_justify && specs.pad_char == ' ')
-		write_same_char_to_buffer(' ', specs.width);
+		write_same_char_to_buffer(writer, ' ', specs.width);
 
 	if (specs.prefix_size > 0 && ft_strncmp(specs.prefix, str, specs.prefix_size))
-		write_n_chars_of_string_to_buffer(specs.prefix, specs.prefix_size);
+		write_n_chars_of_string_to_buffer(writer, specs.prefix, specs.prefix_size);
 	else if (specs.prefix_size > 0 && !ft_strncmp(specs.prefix, str, specs.prefix_size)) {
-		write_n_chars_of_string_to_buffer(specs.prefix, specs.prefix_size);
+		write_n_chars_of_string_to_buffer(writer, specs.prefix, specs.prefix_size);
 		index = specs.prefix_size;
 	}
 
 	if (!specs.left_justify && specs.pad_char == '0')
-		write_same_char_to_buffer('0', specs.width);
-	write_same_char_to_buffer('0', specs.precision_zeroes);
+		write_same_char_to_buffer(writer, '0', specs.width);
+	write_same_char_to_buffer(writer, '0', specs.precision_zeroes);
 
 	if (len > 0)
-		write_n_chars_of_string_to_buffer(&str[index], len);
+		write_n_chars_of_string_to_buffer(writer, &str[index], len);
 
 	if (specs.left_justify)
-		write_same_char_to_buffer(' ', specs.width);
+		write_same_char_to_buffer(writer, ' ', specs.width);
 
 	return (count);
 }
 
-void	handle_string_for_buffer(char *str, t_specs specs)
+void	handle_string_for_buffer(t_writer *writer, char *str, t_specs specs)
 {
 	if (!str) str = "(null)";
 
@@ -147,36 +147,36 @@ void	handle_string_for_buffer(char *str, t_specs specs)
 	size_t spaces = (specs.width > len) ? specs.width - len : 0;
 
 	if (!specs.left_justify)
-		write_same_char_to_buffer(' ', spaces);
-	write_n_chars_of_string_to_buffer(str, len);
+		write_same_char_to_buffer(writer, ' ', spaces);
+	write_n_chars_of_string_to_buffer(writer, str, len);
 	if (specs.left_justify)
-		write_same_char_to_buffer(' ', spaces);
+		write_same_char_to_buffer(writer, ' ', spaces);
 }
 
-void	handle_char_for_buffer(char c, t_specs specs)
+void	handle_char_for_buffer(t_writer *writer, char c, t_specs specs)
 {
 	int spaces = (specs.width > 1) ? specs.width - 1 : 0;
 
 	if (!specs.left_justify)
-		write_same_char_to_buffer(' ', spaces);
+		write_same_char_to_buffer(writer, ' ', spaces);
 
-	write_char_to_buffer(c);
+	write_char_to_buffer(writer, c);
 
 	if (specs.left_justify)
-		write_same_char_to_buffer(' ', spaces);
+		write_same_char_to_buffer(writer, ' ', spaces);
 }
 
-void	handle_alpha_for_buffer(va_list arg_p, char flag, t_specs specs)
+void	handle_alpha_for_buffer(t_writer *writer, va_list arg_p, char flag, t_specs specs)
 {
 	if (flag == 'c')
-		handle_char_for_buffer(va_arg(arg_p, int), specs);
+		handle_char_for_buffer(writer, va_arg(arg_p, int), specs);
 	else if (flag == 's')
-		handle_string_for_buffer(va_arg(arg_p, char *), specs);
+		handle_string_for_buffer(writer, va_arg(arg_p, char *), specs);
 	else if (flag == '%')
-		handle_char_for_buffer('%', specs);
+		handle_char_for_buffer(writer, '%', specs);
 }
 
-void	handle_digit_for_buffer(va_list arg_p, char flag, t_specs specs)
+void	handle_digit_for_buffer(t_writer *writer, va_list arg_p, char flag, t_specs specs)
 {
 	char		*str;
 	long long	val;
@@ -193,12 +193,12 @@ void	handle_digit_for_buffer(va_list arg_p, char flag, t_specs specs)
 		str = ft_utoa_base(val, "0123456789");
 
 	manage_specs_for_buffer(&specs, str, val);
-	write_formatted_output_to_buffer(str, specs);
+	write_formatted_output_to_buffer(writer, str, specs);
 
 	free(str);
 }
 
-void	handle_hex_for_buffer(va_list arg_p, char flag, t_specs specs)
+void	handle_hex_for_buffer(t_writer *writer, va_list arg_p, char flag, t_specs specs)
 {
 	char			*str;
 	unsigned long	val;
@@ -224,12 +224,12 @@ void	handle_hex_for_buffer(va_list arg_p, char flag, t_specs specs)
 	}
 
 	manage_specs_for_buffer(&specs, str, val);
-	write_formatted_output_to_buffer(str, specs);
+	write_formatted_output_to_buffer(writer, str, specs);
 
 	free(str);
 }
 
-void	manage_print_args_for_buffer(va_list arg_p, const char *format, int *i)
+void	manage_print_args_for_buffer(t_writer *writer, va_list arg_p, const char *format, int *i)
 {
 	t_specs	specs;
 
@@ -265,10 +265,10 @@ void	manage_print_args_for_buffer(va_list arg_p, const char *format, int *i)
 			(*i)++;
 	}
 	if (format[*i] == 'c' || format[*i] == 's' || format[*i] == '%')
-		handle_alpha_for_buffer(arg_p, format[*i], specs);
+		handle_alpha_for_buffer(writer, arg_p, format[*i], specs);
 	else if (format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'u')
-		handle_digit_for_buffer(arg_p, format[*i], specs);
+		handle_digit_for_buffer(writer, arg_p, format[*i], specs);
 	else if (format[*i] == 'x' || format[*i] == 'X' || format[*i] == 'p' 
 		|| format[*i] == 'o')
-		handle_hex_for_buffer(arg_p, format[*i], specs);
+		handle_hex_for_buffer(writer, arg_p, format[*i], specs);
 }
