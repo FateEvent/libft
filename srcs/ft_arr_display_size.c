@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** The ft_arr_display_size() displays, one by one, the strings contained
+** in a non-NULL-terminated array of strings. It does not display empty
+** strings (i.e., strings starting with the '\0' character).
+*/
+
 #include "libft.h"
 
 void	ft_arr_display_size(char **arr, size_t size)
@@ -19,7 +25,8 @@ void	ft_arr_display_size(char **arr, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		ft_putendl(arr[i]);
+		if (arr[i][0])
+			ft_putendl(arr[i]);
 		i++;
 	}
 }
