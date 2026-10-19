@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:44:33 by faventur          #+#    #+#             */
-/*   Updated: 2026/09/26 17:01:13 by fab              ###   ########.fr       */
+/*   Updated: 2026/10/19 22:20:12 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ char	**ft_arr_freer_index(char **arr, ssize_t index)
 		i--;
 	}
 	free(arr);
-	arr = NULL;
-	return (arr);
+	return (NULL);
 }
 
 char	**ft_arr_freer_reverse_index(char **arr, size_t index, size_t size)
@@ -44,6 +43,5 @@ char	**ft_arr_freer_reverse_index(char **arr, size_t index, size_t size)
 		i++;
 	}
 	free(arr);
-	arr = NULL;
-	return (arr);
+	return (NULL);
 }
