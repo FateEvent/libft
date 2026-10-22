@@ -6,7 +6,7 @@
 /*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:56:34 by faventur          #+#    #+#             */
-/*   Updated: 2026/03/10 09:42:51 by fab              ###   ########.fr       */
+/*   Updated: 2026/10/04 20:47:41 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_utoa_addr(unsigned long long n)
 	if (x == 0) {
 		return (ft_strcpy(res, "0x0"));
 	}
-	while (i < len_calculator_addr(n) && x != 0)
+	while (i < len && x != 0)
 	{
 		res[i++] = (base[x % 16]);
 		x /= 16;

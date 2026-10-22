@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_chartab.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:20:58 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/05 14:45:50 by albaur           ###   ########.fr       */
+/*   Updated: 2026/09/26 12:07:57 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 void	ft_sort_chartab(char **tab)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fab <faventur@student.42mulhouse.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:21:03 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/01 10:41:07 by albaur           ###   ########.fr       */
+/*   Updated: 2026/09/26 17:02:13 by fab              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**ft_split(char const *s, char c)
 		var.str_len = let_count((char *)s, c, &var.i);
 		var.strtab[var.k] = malloc(sizeof(char) * (var.str_len + 1));
 		if (!var.strtab[var.k])
-			return (ft_arr_freer_index(var.strtab, &var.k));
+			return (ft_arr_freer_index(var.strtab, var.k));
 		ft_word_split(var.strtab[var.k++], (char *)s, c, &var.j);
 	}
 	var.strtab[var.k] = NULL;
