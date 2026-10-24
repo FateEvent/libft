@@ -13,6 +13,7 @@
 # include <sys/time.h>			// gettimeofday
 # include <errno.h>				// errno
 # include "libft.h"
+# include "ft_printf.h"
 
 int				parse_ip(char *ip);
 int				is_hex(char c);

@@ -18,9 +18,7 @@ int	str_ipcheck(const char *str)
 		}
 		if (str[i] == '.' || str[i] == '\0')
 		{
-			ft_dprintf(2, "ft_ping: ...\n");
 			value = ft_atoi(ft_substr(str, start, i - start));
-			ft_dprintf(2, "ft_ping: %d\n", value);
 			if (value < 0 || value > 255)
 				return (1);
 			if (str[i] == '.')
