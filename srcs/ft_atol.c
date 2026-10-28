@@ -14,21 +14,21 @@
 ** The ft_atol() function converts the initial portion of the string pointed to
 ** by nptr to long long int.
 **
-** Return Value: The converted value. If it is greater than LONG_LONG_MAX or
-** less than LONG_LONG_MIN it will return, respectively, LONG_LONG_MAX and
-** LONG_LONG_MIN.
+** Return Value: The converted value. If it is greater than LLONG_MAX or
+** less than LLONG_MIN it will return, respectively, LLONG_MAX and
+** LLONG_MIN.
 */
 
 #include "libft.h"
 
 long long	progress_bar(const char *nptr, size_t i, long long res) {
 	while ((nptr[i] >= '0' && nptr[i] <= '9') && nptr[i]
-			&& (res * 10 + (nptr[i] - '0')) <= LONG_LONG_MAX
-			&& (res * 10 + (nptr[i] - '0')) != LONG_LONG_MIN) {
+			&& (res * 10 + (nptr[i] - '0')) <= LLONG_MAX
+			&& (res * 10 + (nptr[i] - '0')) != LLONG_MIN) {
 		res = res * 10 + (nptr[i++] - '0');
 	}
 	if (nptr[i] != '\0')
-		return (LONG_LONG_MAX);
+		return (LLONG_MAX);
 	return (res);
 }
 
@@ -36,10 +36,11 @@ long long	ft_atol_op(const char *nptr, size_t i, long long res,
 	long long define)
 {
 	res = progress_bar(nptr, i, res);
-	if (define == LONG_LONG_MIN)
+	if (define == LLONG_MIN)
 	{
-		if (res == LONG_LONG_MAX)
+		if (res == LLONG_MAX)
 			return (define);
+		return (-res);
 	}
 	else
 		if (res < 0)
@@ -62,7 +63,7 @@ long	ft_atol(const char *nptr)
 		|| (nptr[i] && nptr[i] == '+'))
 		i++;
 	if (counter == 1)
-		return (ft_atol_op(nptr, i, res, LONG_LONG_MIN));
+		return (ft_atol_op(nptr, i, res, LLONG_MIN));
 	else
-		return (ft_atol_op(nptr, i, res, LONG_LONG_MAX));
+		return (ft_atol_op(nptr, i, res, LLONG_MAX));
 }

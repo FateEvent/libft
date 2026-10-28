@@ -14,16 +14,27 @@
 ** The ft_atollu() function converts the initial portion of the string
 ** pointed to by nptr to unsigned long long int.
 **
-** Return Value: The converted value.
+** Return Value: The converted value, 0 if it fails, ULLONG_MAX if it
+** overflows.
 */
 
 #include "libft.h"
 
 static unsigned long long	progress_bar_unsigned(const char *nptr, size_t i,
-	unsigned long long res) {
-	while ((nptr[i] >= '0' && nptr[i] <= '9') && nptr[i]) {
-		res = res * 10 + (nptr[i++] - '0');
+	unsigned long long res)
+{
+	unsigned long long	digit;
+
+	while ((nptr[i] >= '0' && nptr[i] <= '9') && nptr[i])
+	{
+		digit = nptr[i] - '0';
+		if (res > (ULLONG_MAX - digit) / 10)
+			return (ULLONG_MAX);
+		res = res * 10 + digit;
+		i++;
 	}
+	if (nptr[i] != '\0')
+		return (ULLONG_MAX);
 	return (res);
 }
 
@@ -31,7 +42,7 @@ static unsigned long long	ft_atollu_op(const char *nptr, size_t i,
 	unsigned long long res)
 {
 	res = progress_bar_unsigned(nptr, i, res);
-	if (res > LONG_LONG_MAX)
+	if (res > ULLONG_MAX)
 		return (-1);
 	return (res);
 }
@@ -45,9 +56,13 @@ unsigned long long	ft_atollu(const char *nptr)
 	res = 0;
 	while (nptr[i] && ft_isspace(nptr[i]))
 		i++;
-	if (nptr[i] && nptr[i] == '-')
+	if (nptr[i] && nptr[i] == '-' && nptr[i + 1] && ft_isdigit(nptr[i + 1]))
 		return (-1);
-	if (nptr[i] && nptr[i] == '+')
+	else if (nptr[i] && nptr[i] == '+' && nptr[i + 1] && ft_isdigit(nptr[i + 1]))
 		i++;
+	else if (nptr[i] && nptr[i] == '-')
+		return (0);
+	else if (nptr[i] && nptr[i] == '+')
+		return (0);
 	return (ft_atollu_op(nptr, i, res));
 }
