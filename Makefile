@@ -56,6 +56,7 @@ SRCS_BT		=	btree_create_node.c btree_apply_prefix.c btree_apply_infix.c \
 SRCS_NET	=	parse_ip.c is_hex.c parse_mac.c get_my_ip.c \
 		compute_checksum.c str_ipcheck.c time.c
 
+TEST_SRCS	= 	main.c
 
 OBJS		=	$(addprefix srcs/, ${SRCS:.c=.o})
 
@@ -73,13 +74,17 @@ OBJS_BT		=	$(addprefix btrees/, ${SRCS_BT:.c=.o})
 
 OBJS_NET	=	$(addprefix networking/, ${SRCS_NET:.c=.o})
 
+TEST_OBJS	= 	${TEST_SRCS:.c=.o}
+
 CFLAGS		=	-Wall -Wextra -Werror
 INCLUDES	=	-I./includes
 
 NAME		=	libft.a
 
+TEST		=	test
+
 .c.o:
-		gcc ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
+		$(CC) ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 			ar -rcs $@ $^
@@ -107,12 +112,15 @@ btrees:		${NAME} ${OBJS_BT}
 network:	${NAME} ${OBJS_NET}
 			ar -rcs ${NAME} ${OBJS_NET}
 
+test:		printf ${TEST_OBJS}
+			$(CC) $(CFLAGS) $(TEST_OBJS) $(NAME) -o $(TEST)
+
 clean:
 			rm -f ${OBJS} ${OBJS_PRINTF} ${OBJS_FT} ${OBJS_L} \
 				${OBJS_S} ${OBJS_Q} ${OBJS_BT} ${OBJS_NET}
 
 fclean:		clean
-			rm -f ${NAME}
+			rm -f ${NAME} ${TEST}
 
 re:			fclean all
 

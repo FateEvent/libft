@@ -23,12 +23,21 @@ int main()
 	printf("%d\n", printf("%s\t%p\n", t, t));
 
 	printf("%ld\n", atol("-9223372036854775808"));
-	printf("%lld\n", ft_atol("-9223372036854775808"));
+	printf("%ld\n", ft_atol("-9223372036854775808"));
 	printf("%ld\n", atol("9223372036854775807"));
-	printf("%lld\n", ft_atol("9223372036854775807"));
+	printf("%ld\n", ft_atol("9223372036854775807"));
 	printf("%llu\n", ft_atollu("-9223372036854775808"));
 	printf("%llu\n", ft_atollu("9223372036854775807"));
+	printf("%llu\n", ft_atollu("-6"));
+	printf("%llu\n", ft_atollu("-"));
+	printf("%llu\n", ft_atollu("+"));
+	printf("%llu\n", ft_atollu(""));
+	char *endptr;
+	printf("%llu\n", strtoull("-6", &endptr, 10));
+	printf("%llu\n", strtoull("-", &endptr, 10));
+	printf("%llu\n", strtoull("+", &endptr, 10));
+	printf("%llu\n", strtoull("", &endptr, 10));
 
-	printf("%#0.0s empty string\n", "house");
-	ft_printf("%#0.0s empty string\n", "house");
+	printf("%s empty string\n", "house");
+	ft_printf("%s empty string\n", "house");
 }
